@@ -1,190 +1,101 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HAC Procurement</title>
-<style>
-  :root {
-    --bg: #f5f5f3;
-    --surface: #ffffff;
-    --border: #e2e2e0;
-    --text: #1a1a1a;
-    --text-muted: #888;
-    --accent: #1a6b3c;
-    --accent-light: #e8f5ee;
-    --accent-border: #a3d4b5;
-    --radius: 10px;
-    --shadow: 0 1px 3px rgba(0,0,0,0.08);
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
-
-  /* AUTH SCREEN */
-  .auth-screen { display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; }
-  .auth-box { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px; width: 100%; max-width: 400px; text-align: center; box-shadow: var(--shadow); }
-  .auth-box h2 { font-size: 20px; color: var(--accent); margin-bottom: 12px; }
-  .auth-box p { font-size: 13px; color: var(--text-muted); margin-bottom: 20px; }
-  .auth-input { width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: var(--radius); font-size: 14px; margin-bottom: 16px; outline: none; }
-  .auth-input:focus { border-color: var(--accent); }
-  .btn-auth { width: 100%; padding: 12px; background: var(--accent); color: white; border: none; border-radius: var(--radius); font-size: 14px; font-weight: 500; cursor: pointer; }
-  .btn-auth:disabled { opacity: 0.6; cursor: not-allowed; }
-
-  /* TOPBAR */
-  .topbar { background: var(--surface); border-bottom: 1px solid var(--border); padding: 12px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
-  .topbar-logo { display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 600; color: var(--accent); }
-  .topbar-logo svg { width: 28px; height: 28px; }
-  .topbar-meta { display: flex; align-items: center; gap: 20px; }
-  .meta-item { font-size: 12px; color: var(--text-muted); }
-  .meta-item strong { color: var(--text); font-weight: 500; }
-  .pr-badge { background: var(--accent-light); border: 1px solid var(--accent-border); color: var(--accent); font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 20px; }
-
-  /* BODY */
-  .container { max-width: 900px; margin: 0 auto; padding: 24px 16px; display: none; } /* مخفي حتى التحقق من الإيميل */
-
-  /* PROJECT ROW FIELDS */
-  .project-fields-row { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; margin-bottom: 20px; }
-  @media(max-width: 600px) { .project-fields-row { grid-template-columns: 1fr; } }
-
-  .project-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px 16px; display: flex; align-items: center; gap: 12px; }
-  .project-wrap label { font-size: 13px; font-weight: 500; color: var(--text-muted); white-space: nowrap; }
-  .project-wrap input, .project-wrap select { flex: 1; border: none; outline: none; font-size: 15px; font-weight: 500; color: var(--text); background: transparent; width: 100%; }
-  .project-wrap input::placeholder { color: #ccc; font-weight: 400; }
-
-  /* FILTER TABS */
-  .filter-section { margin-bottom: 14px; }
-  .filter-label { font-size: 11px; font-weight: 500; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
-  .filter-tabs { display: flex; gap: 6px; flex-wrap: wrap; }
-  .filter-tab { padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 500; cursor: pointer; border: 1px solid var(--border); background: var(--surface); color: var(--text-muted); transition: all 0.15s; }
-  .filter-tab.active { background: var(--accent-light); border-color: var(--accent-border); color: var(--accent); }
-
-  /* MATERIALS GRID */
-  .grid-label { font-size: 11px; font-weight: 500; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; }
-  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; margin-bottom: 20px; }
-  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 10px; cursor: pointer; transition: border-color 0.15s; position: relative; }
-  .card:hover { border-color: var(--accent-border); }
-  .card.selected { border: 1.5px solid var(--accent); background: var(--accent-light); }
-  .card-img { width: 100%; height: 64px; border-radius: 8px; background: #f0f0ee; display: flex; align-items: center; justify-content: center; margin-bottom: 8px; overflow: hidden; }
-  .card-img img { width: 100%; height: 100%; object-fit: cover; }
-  .card-name { font-size: 11px; font-weight: 500; color: var(--text); line-height: 1.35; margin-bottom: 2px; }
-  .card-code { font-size: 10px; color: var(--text-muted); }
-  .check-icon { position: absolute; top: 8px; right: 8px; width: 16px; height: 16px; border-radius: 50%; background: var(--accent); display: none; align-items: center; justify-content: center; }
-  .card.selected .check-icon { display: flex; }
-  .check-icon svg { width: 10px; height: 10px; stroke: white; fill: none; }
-  .qty-row { display: none; margin-top: 8px; border-top: 1px solid var(--accent-border); padding-top: 8px; }
-  .card.selected .qty-row { display: block; }
-  .qty-row input { width: 100%; height: 30px; border-radius: 6px; border: 1px solid var(--accent-border); background: white; color: var(--text); font-size: 13px; font-weight: 500; padding: 0 8px; text-align: center; outline: none; }
-  .qty-row input:focus { border-color: var(--accent); }
-
-  /* SUMMARY */
-  .summary { background: var(--accent-light); border: 1px solid var(--accent-border); border-radius: var(--radius); padding: 10px 16px; font-size: 13px; color: var(--accent); display: none; align-items: center; gap: 8px; margin-bottom: 16px; }
-  .summary.show { display: flex; }
-
-  /* ACTIONS */
-  .actions { display: flex; gap: 10px; justify-content: flex-end; padding-top: 16px; border-top: 1px solid var(--border); }
-  .btn-clear { padding: 9px 20px; border-radius: var(--radius); border: 1px solid var(--border); background: var(--surface); color: var(--text); font-size: 13px; cursor: pointer; }
-  .btn-submit { padding: 9px 24px; border-radius: var(--radius); border: none; background: var(--accent); color: white; font-size: 13px; font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 6px; }
-  .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; }
-
-  /* LOADING */
-  .loading { text-align: center; padding: 40px; color: var(--text-muted); font-size: 14px; }
-
-  /* SUCCESS */
-  .success-screen { display: none; text-align: center; padding: 60px 20px; }
-  .success-screen.show { display: block; }
-  .success-icon { width: 60px; height: 60px; border-radius: 50%; background: var(--accent-light); display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; }
-  .success-icon svg { width: 28px; height: 28px; stroke: var(--accent); fill: none; stroke-width: 2; }
-  .success-title { font-size: 20px; font-weight: 600; color: var(--text); margin-bottom: 8px; }
-  .success-pr { font-size: 15px; color: var(--accent); font-weight: 500; margin-bottom: 6px; }
-  .success-sub { font-size: 13px; color: var(--text-muted); margin-bottom: 24px; }
-  .btn-new { padding: 10px 24px; border-radius: var(--radius); border: none; background: var(--accent); color: white; font-size: 13px; font-weight: 500; cursor: pointer; }
-</style>
-</head>
-<body>
-
-<div class="auth-screen" id="auth-screen">
-  <div class="auth-box">
-    <h2>HAC Procurement Portal</h2>
-    <p>Please enter your authorized email to access the system.</p>
-    <input type="email" id="auth-email" class="auth-input" placeholder="name@company.com">
-    <button class="btn-auth" id="auth-btn" onclick="verifyUser()">Login</button>
-  </div>
-</div>
-
-<div id="app-wrapper" style="display: none;">
-  <div class="topbar">
-    <div class="topbar-logo">
-      <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="28" height="28" rx="7" fill="#1a6b3c"/>
-        <path d="M7 14h14M7 10h10M7 18h8" stroke="white" stroke-width="2" stroke-linecap="round"/>
-      </svg>
-      HAC Procurement
-    </div>
-    <div class="topbar-meta">
-      <span class="pr-badge" id="pr-display">PR-2026-—</span>
-      <div class="meta-item">Date: <strong id="date-display">—</strong></div>
-      <div class="meta-item">User: <strong id="user-display">—</strong></div>
-    </div>
-  </div>
-
-  <div class="container" id="main-container" style="display: block;">
-    <div id="main-form">
-      <div class="project-fields-row">
-        <div class="project-wrap">
-          <label>Project</label>
-          <input type="text" id="project-input" placeholder="e.g. Juin Park Offices">
-        </div>
+function doGet(e) {
+  var action = e.parameter.action;
+  
+  // معرفات الشيتات الخاصة بك (IDs)
+  var dbSourceId = "1HTAXntyJ_5RfEi5rxcgwUs3mGdAKda_5-ODqFLqHTi4"; // شيت المستخدمين والمواد
+  var ordersDbId = "15e_uxz71uj8Co-_RFb_9KWjO-xSX6XdL90nX2UMBmJE"; // شيت الطلبات
+  
+  // 1. التحقق من الإيميل والباسوورد وجلب الاسم من شيت Users
+  if (action === "verifyUser") {
+    var emailToVerify = e.parameter.email;
+    var passwordToVerify = e.parameter.password;
+    
+    var ssSource = SpreadsheetApp.openById(dbSourceId);
+    var userSheet = ssSource.getSheetByName("Users");
+    var authorized = false;
+    var userName = "";
+    
+    if (userSheet) {
+      var data = userSheet.getDataRange().getValues();
+      for (var i = 1; i < data.length; i++) {
+        var sheetEmail = data[i][0].toString().trim().toLowerCase();
+        var sheetPassword = data[i][1].toString().trim();
+        var sheetUserName = data[i][2] ? data[i][2].toString().trim() : "";
         
-        <div class="project-wrap">
-          <label>Location</label>
-          <select id="location-input">
-            <option value="" disabled selected>Select City</option>
-            <option value="Riyadh">Riyadh (الرياض)</option>
-            <option value="Jeddah">Jeddah (جدة)</option>
-            <option value="Mecca">Mecca (مكة المكرمة)</option>
-            <option value="Medina">Medina (المدينة المنورة)</option>
-            <option value="Dammam">Dammam (الدمام)</option>
-            <option value="Khobar">Khobar (الخبر)</option>
-            <option value="Abha">Abha (أبها)</option>
-            <option value="Tabuk">Tabuk (تبوك)</option>
-            <option value="Buraidah">Buraidah (بريدة)</option>
-            <option value="Hail">Hail (حائل)</option>
-            <option value="Jazan">Jazan (جازان)</option>
-            <option value="Najran">Najran (نجران)</option>
-            <option value="Taif">Taif (الطائف)</option>
-            <option value="Jubail">Jubail (الجبيل)</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="filter-section">
-        <div class="filter-label">Category</div>
-        <div class="filter-tabs" id="filter-tabs">
-          <div class="filter-tab active" data-cat="ALL" onclick="filterCat(this)">All</div>
-        </div>
-      </div>
-
-      <div class="grid-label">Select materials and enter quantity</div>
-      <div class="grid" id="materials-grid">
-        <div class="loading">Loading materials...</div>
-      </div>
-
-      <div class="summary" id="summary">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="2,8 6,12 14,4"/></svg>
-        <span id="summary-text"></span>
-      </div>
-
-      <div class="actions">
-        <button class="btn-clear" onclick="clearAll()">Clear</button>
-        <button class="btn-submit" id="submit-btn" onclick="submitOrder()">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><line x1="2" y1="7" x2="12" y2="7"/><polyline points="8,3 12,7 8,11"/></svg>
-          Submit Request
-        </button>
-      </div>
-    </div>
-
-    <div class="success-screen" id="success-screen">
-      <div class="success-icon">
-        <svg viewBox="0 0 28 28"><polyline points="4,14 10,20 24,8"/></svg>
-      </div>
-      <div class="success-title">Request Submitted
+        if (sheetEmail === emailToVerify.trim().toLowerCase() && sheetPassword === passwordToVerify) {
+          authorized = true;
+          userName = sheetUserName || sheetEmail;
+          break;
+        }
+      }
+    }
+    return ContentService.createTextOutput(JSON.stringify({ authorized: authorized, userName: userName }))
+                         .setMimeType(ContentService.MimeType.JSON);
+  }
+  
+  // 2. جلب المواد من شيت Materials
+  if (action === "getMaterials") {
+    var ssSource = SpreadsheetApp.openById(dbSourceId);
+    var sheet = ssSource.getSheetByName("Materials");
+    
+    if (!sheet) {
+      return ContentService.createTextOutput(JSON.stringify({ success: false, message: "Materials sheet not found." }))
+                           .setMimeType(ContentService.MimeType.JSON);
+    }
+    
+    var data = sheet.getDataRange().getValues();
+    var headers = data[0];
+    var jsonArray = [];
+    
+    for (var i = 1; i < data.length; i++) {
+      var obj = {};
+      for (var j = 0; j < headers.length; j++) {
+        obj[headers[j]] = data[i][j];
+      }
+      jsonArray.push(obj);
+    }
+    return ContentService.createTextOutput(JSON.stringify({ success: true, data: jsonArray }))
+                         .setMimeType(ContentService.MimeType.JSON);
+  }
+  
+  // 3. إرسال الطلب وحفظه في الشيت الثاني (Orders)
+  if (action === "submitOrder") {
+    try {
+      var project = e.parameter.project;
+      var location = e.parameter.location;
+      var requester = e.parameter.requester;
+      var orders = JSON.parse(e.parameter.orders);
+      
+      var ssOrders = SpreadsheetApp.openById(ordersDbId);
+      var orderSheet = ssOrders.getSheetByName("Orders");
+      
+      if (!orderSheet) {
+        return ContentService.createTextOutput(JSON.stringify({ success: false, message: "Orders sheet not found in destination." }))
+                             .setMimeType(ContentService.MimeType.JSON);
+      }
+      
+      var timestamp = new Date();
+      var prNo = "PR-" + timestamp.getFullYear() + "-" + Math.floor(Math.random() * 9000 + 1000); 
+      
+      orders.forEach(function(item) {
+        orderSheet.appendRow([
+          prNo,
+          timestamp,
+          project,
+          location,
+          requester,
+          item.code,
+          item.description,
+          item.qty
+        ]);
+      });
+      
+      return ContentService.createTextOutput(JSON.stringify({ success: true, prNo: prNo }))
+                           .setMimeType(ContentService.MimeType.JSON);
+                           
+    } catch(err) {
+      return ContentService.createTextOutput(JSON.stringify({ success: false, message: err.toString() }))
+                           .setMimeType(ContentService.MimeType.JSON);
+    }
+  }
+}
