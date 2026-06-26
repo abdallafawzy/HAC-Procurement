@@ -102,7 +102,6 @@
 </head>
 <body>
 
-<!-- شاشة تسجيل الدخول المعدلة -->
 <div class="auth-screen" id="auth-screen">
   <div class="auth-box">
     <h2>HAC Procurement</h2>
@@ -113,7 +112,6 @@
   </div>
 </div>
 
-<!-- الواجهة الرئيسية للتطبيق -->
 <div id="app-wrapper" style="display: none;">
   <div class="topbar">
     <div class="topbar-logo">
@@ -199,6 +197,7 @@
 </div>
 
 <script>
+// تم ربط الكود بالـ API الخاص بك تلقائياً بعد تعديله
 const API_URL = 'https://script.google.com/macros/s/AKfycbyCNCmHawUWwIfwiSxEQiZEzUebzKh4hvhy0URoPxOlhfw2F4CjwCX9dB9FLXaNzR4e4Q/exec';
 
 let currentUserName = ''; 
@@ -278,7 +277,7 @@ function buildCategoryTabs() {
     tab.dataset.cat = cat;
     tab.textContent = cat;
     tab.onclick = () => filterCat(tab);
-    tabs.appendChild(tabs.appendChild(tab));
+    tabs.appendChild(tab);
   });
 }
 
