@@ -6,58 +6,49 @@
 <title>HAC Procurement</title>
 <style>
   :root {
-    --bg: #f5f5f3;
-    --surface: #ffffff;
-    --border: #e2e2e0;
-    --text: #1a1a1a;
-    --text-muted: #888;
-    --accent: #1a6b3c;
-    --accent-light: #e8f5ee;
-    --accent-border: #a3d4b5;
-    --radius: 10px;
-    --shadow: 0 1px 3px rgba(0,0,0,0.08);
+    --bg: #f5f5f3; --surface: #ffffff; --border: #e2e2e0; --text: #1a1a1a;
+    --text-muted: #888; --accent: #1a6b3c; --accent-light: #e8f5ee;
+    --accent-border: #a3d4b5; --radius: 10px; --shadow: 0 1px 3px rgba(0,0,0,0.08);
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+  
+  /* Auth Screen */
   .auth-screen { display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; }
   .auth-box { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px; width: 100%; max-width: 400px; text-align: center; box-shadow: var(--shadow); }
-  .auth-box h2 { font-size: 20px; color: var(--accent); margin-bottom: 12px; }
-  .auth-box p { font-size: 13px; color: var(--text-muted); margin-bottom: 20px; }
-  .auth-input { width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: var(--radius); font-size: 14px; margin-bottom: 16px; outline: none; }
-  .auth-input:focus { border-color: var(--accent); }
-  .btn-auth { width: 100%; padding: 12px; background: var(--accent); color: white; border: none; border-radius: var(--radius); font-size: 14px; font-weight: 500; cursor: pointer; }
+  .auth-input { width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 16px; outline: none; }
+  .btn-auth { width: 100%; padding: 12px; background: var(--accent); color: white; border: none; border-radius: var(--radius); cursor: pointer; }
   
+  /* Topbar */
   .topbar { background: var(--surface); border-bottom: 1px solid var(--border); padding: 12px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
-  .topbar-logo { display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 600; color: var(--accent); }
-  .topbar-meta { display: flex; align-items: center; gap: 20px; }
-  .btn-signout { background: #fee2e2; color: #dc2626; border: 1px solid #fecaca; padding: 5px 12px; border-radius: 6px; font-size: 11px; cursor: pointer; }
-  .meta-item { font-size: 12px; color: var(--text-muted); }
-  .meta-item strong { color: var(--text); font-weight: 500; }
-  .pr-badge { background: var(--accent-light); border: 1px solid var(--accent-border); color: var(--accent); font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 20px; }
+  .topbar-logo { display: flex; align-items: center; gap: 10px; font-weight: 600; color: var(--accent); }
+  .topbar-meta { display: flex; align-items: center; gap: 15px; }
+  .btn-signout { background: #fee2e2; color: #dc2626; border: 1px solid #fecaca; padding: 4px 10px; border-radius: 6px; font-size: 11px; cursor: pointer; }
   
+  /* Main Content */
   .container { max-width: 900px; margin: 0 auto; padding: 24px 16px; }
   .project-fields-row { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; margin-bottom: 20px; }
   .project-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px 16px; display: flex; align-items: center; gap: 12px; }
-  .project-wrap input, .project-wrap select { flex: 1; border: none; outline: none; font-size: 15px; font-weight: 500; color: var(--text); background: transparent; }
+  .project-wrap input, .project-wrap select { flex: 1; border: none; background: transparent; outline: none; font-size: 15px; }
   
+  /* Brand Inputs */
   .brand-input-group { margin-top: 15px; padding: 12px; border: 1px solid var(--accent-border); border-radius: var(--radius); background: #f9f9f9; }
   .brand-input-group label { display: block; font-size: 12px; font-weight: 600; margin-bottom: 6px; color: var(--accent); }
-  .brand-input-group input { width: 100%; padding: 8px; border: 1px solid var(--border); border-radius: 5px; font-size: 14px; }
-  
+  .brand-input-group input { width: 100%; padding: 8px; border: 1px solid var(--border); border-radius: 5px; }
+
+  /* Filters & Grid */
   .filter-tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 14px; }
-  .filter-tab { padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 500; cursor: pointer; border: 1px solid var(--border); background: var(--surface); color: var(--text-muted); }
+  .filter-tab { padding: 6px 14px; border-radius: 20px; font-size: 12px; cursor: pointer; border: 1px solid var(--border); background: var(--surface); color: var(--text-muted); }
   .filter-tab.active { background: var(--accent-light); border-color: var(--accent-border); color: var(--accent); }
-  
   .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; margin-bottom: 20px; }
   .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 10px; cursor: pointer; position: relative; }
   .card.selected { border: 1.5px solid var(--accent); background: var(--accent-light); }
-  .card-name { font-size: 11px; font-weight: 500; margin-bottom: 2px; }
   .qty-row { display: none; margin-top: 8px; border-top: 1px solid var(--accent-border); padding-top: 8px; }
   .card.selected .qty-row { display: block; }
-  .qty-row input { width: 100%; border-radius: 6px; border: 1px solid var(--accent-border); padding: 4px; text-align: center; }
+  .qty-row input { width: 100%; padding: 4px; border: 1px solid var(--accent-border); border-radius: 4px; text-align: center; }
   
-  .btn-submit { padding: 10px 24px; border-radius: var(--radius); border: none; background: var(--accent); color: white; cursor: pointer; width: 100%; font-weight: 600; }
-  .success-screen { display: none; text-align: center; padding: 40px; }
+  .btn-submit { width: 100%; padding: 12px; background: var(--accent); color: white; border: none; border-radius: var(--radius); font-weight: 600; cursor: pointer; margin-top: 20px; }
+  .success-screen { display: none; text-align: center; padding: 60px; }
   .success-screen.show { display: block; }
 </style>
 </head>
@@ -66,7 +57,7 @@
 <div class="auth-screen" id="auth-screen">
   <div class="auth-box">
     <h2>HAC Procurement</h2>
-    <input type="email" id="auth-email" class="auth-input" placeholder="Email">
+    <input type="email" id="auth-email" class="auth-input" placeholder="name@company.com">
     <input type="password" id="auth-password" class="auth-input" placeholder="Password">
     <button class="btn-auth" onclick="verifyUser()">Login</button>
   </div>
@@ -77,7 +68,7 @@
     <div class="topbar-logo">HAC Procurement</div>
     <div class="topbar-meta">
       <button class="btn-signout" onclick="signOut()">Sign Out</button>
-      <span class="pr-badge" id="pr-display">PR-2026</span>
+      <span id="date-display"></span>
     </div>
   </div>
 
@@ -85,21 +76,14 @@
     <div id="main-form">
       <div class="project-fields-row">
         <div class="project-wrap"><label>Project</label><input type="text" id="project-input"></div>
-        <div class="project-wrap"><label>City</label><select id="location-input"><option value="Riyadh">Riyadh</option><option value="Jeddah">Jeddah</option></select></div>
+        <div class="project-wrap"><label>Location</label><select id="location-input"><option value="Riyadh">Riyadh</option><option value="Jeddah">Jeddah</option></select></div>
       </div>
-      
-      <div id="filter-tabs" class="filter-tabs"></div>
+      <div class="filter-tabs" id="filter-tabs"></div>
       <div class="grid" id="materials-grid"></div>
-      
-      <div id="brand-inputs-container" style="margin-bottom: 20px;"></div>
-
-      <button class="btn-submit" id="submit-btn" onclick="submitOrder()">Submit Request</button>
+      <div id="brand-inputs-container"></div>
+      <button class="btn-submit" onclick="submitOrder()">Submit Request</button>
     </div>
-
-    <div class="success-screen" id="success-screen">
-      <h3>Request Submitted!</h3>
-      <button onclick="location.reload()">New Request</button>
-    </div>
+    <div class="success-screen" id="success-screen"><h3>Request Submitted!</h3><button onclick="location.reload()">New Request</button></div>
   </div>
 </div>
 
@@ -116,10 +100,16 @@ function verifyUser() {
   const email = document.getElementById('auth-email').value.trim().toLowerCase();
   const password = document.getElementById('auth-password').value.trim();
   const user = ALLOWED_USERS.find(u => u.email === email && u.password === password);
-  if (user) { localStorage.setItem('hac_user', user.name); location.reload(); } else { alert('Invalid'); }
+  if (user) { localStorage.setItem('hac_user', user.name); location.reload(); } else { alert('Invalid credentials'); }
 }
 
-window.onload = () => { if(localStorage.getItem('hac_user')) { document.getElementById('auth-screen').style.display = 'none'; document.getElementById('app-wrapper').style.display = 'block'; loadMaterials(); } };
+window.onload = () => {
+  if (localStorage.getItem('hac_user')) {
+    document.getElementById('auth-screen').style.display = 'none';
+    document.getElementById('app-wrapper').style.display = 'block';
+    loadMaterials();
+  }
+};
 
 function loadMaterials() {
   fetch(`${API_URL}?action=getMaterials`)
@@ -130,24 +120,6 @@ function loadMaterials() {
     });
 }
 
-function toggleCard(code) {
-  const item = materials.find(m => m.code === code);
-  item.selected = !item.selected;
-  renderGrid(currentCat);
-  updateBrandInputs();
-}
-
-function updateBrandInputs() {
-  const container = document.getElementById('brand-inputs-container');
-  const selectedCats = [...new Set(materials.filter(m => m.selected).map(m => m.category))];
-  container.innerHTML = selectedCats.map(cat => `
-    <div class="brand-input-group">
-      <label>Brand for ${cat}</label>
-      <input type="text" class="brand-field" data-cat="${cat}" placeholder="Enter brand...">
-    </div>
-  `).join('');
-}
-
 function renderGrid(cat) {
   currentCat = cat;
   const filtered = cat === 'ALL' ? materials : materials.filter(m => m.category === cat);
@@ -155,18 +127,38 @@ function renderGrid(cat) {
     <div class="card ${m.selected ? 'selected' : ''}" onclick="toggleCard('${m.code}')">
       <div class="card-name">${m.description}</div>
       <div class="qty-row">
-        <input type="number" placeholder="Qty" value="${m.quantity}" onclick="event.stopPropagation()" oninput="materials.find(x=>x.code=='${m.code}').quantity=this.value">
+        <input type="number" placeholder="Qty" value="${m.quantity}" onclick="event.stopPropagation()" oninput="updateQty('${m.code}', this.value)">
       </div>
     </div>
   `).join('');
 }
 
+function toggleCard(code) {
+  const item = materials.find(m => m.code === code);
+  item.selected = !item.selected;
+  renderGrid(currentCat);
+  updateBrandInputs();
+}
+
+function updateQty(code, val) { materials.find(m => m.code === code).quantity = val; }
+
+function updateBrandInputs() {
+  const container = document.getElementById('brand-inputs-container');
+  const selectedCats = [...new Set(materials.filter(m => m.selected).map(m => m.category))];
+  container.innerHTML = selectedCats.map(cat => `
+    <div class="brand-input-group">
+      <label>Brand for ${cat}</label>
+      <input type="text" class="brand-field" data-cat="${cat}" placeholder="Enter brand name...">
+    </div>
+  `).join('');
+}
+
 function submitOrder() {
-  const brandFields = document.querySelectorAll('.brand-field');
   const brands = {};
-  for (let field of brandFields) {
-    if (!field.value.trim()) { alert(`Enter brand for ${field.dataset.cat}`); return; }
-    brands[field.dataset.cat] = field.value;
+  const fields = document.querySelectorAll('.brand-field');
+  for (let f of fields) {
+    if (!f.value.trim()) { alert(`Enter brand for ${f.dataset.cat}`); return; }
+    brands[f.dataset.cat] = f.value;
   }
   
   const selectedItems = materials.filter(m => m.selected);
