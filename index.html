@@ -20,6 +20,16 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
 
+  /* AUTH SCREEN */
+  .auth-screen { display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; }
+  .auth-box { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px; width: 100%; max-width: 400px; text-align: center; box-shadow: var(--shadow); }
+  .auth-box h2 { font-size: 20px; color: var(--accent); margin-bottom: 12px; }
+  .auth-box p { font-size: 13px; color: var(--text-muted); margin-bottom: 20px; }
+  .auth-input { width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: var(--radius); font-size: 14px; margin-bottom: 16px; outline: none; }
+  .auth-input:focus { border-color: var(--accent); }
+  .btn-auth { width: 100%; padding: 12px; background: var(--accent); color: white; border: none; border-radius: var(--radius); font-size: 14px; font-weight: 500; cursor: pointer; }
+  .btn-auth:disabled { opacity: 0.6; cursor: not-allowed; }
+
   /* TOPBAR */
   .topbar { background: var(--surface); border-bottom: 1px solid var(--border); padding: 12px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
   .topbar-logo { display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 600; color: var(--accent); }
@@ -30,12 +40,15 @@
   .pr-badge { background: var(--accent-light); border: 1px solid var(--accent-border); color: var(--accent); font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 20px; }
 
   /* BODY */
-  .container { max-width: 900px; margin: 0 auto; padding: 24px 16px; }
+  .container { max-width: 900px; margin: 0 auto; padding: 24px 16px; display: none; } /* مخفي حتى التحقق من الإيميل */
 
-  /* PROJECT FIELD */
-  .project-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 20px; margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
+  /* PROJECT ROW FIELDS */
+  .project-fields-row { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; margin-bottom: 20px; }
+  @media(max-width: 600px) { .project-fields-row { grid-template-columns: 1fr; } }
+
+  .project-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px 16px; display: flex; align-items: center; gap: 12px; }
   .project-wrap label { font-size: 13px; font-weight: 500; color: var(--text-muted); white-space: nowrap; }
-  .project-wrap input { flex: 1; border: none; outline: none; font-size: 15px; font-weight: 500; color: var(--text); background: transparent; }
+  .project-wrap input, .project-wrap select { flex: 1; border: none; outline: none; font-size: 15px; font-weight: 500; color: var(--text); background: transparent; width: 100%; }
   .project-wrap input::placeholder { color: #ccc; font-weight: 400; }
 
   /* FILTER TABS */
@@ -53,7 +66,6 @@
   .card.selected { border: 1.5px solid var(--accent); background: var(--accent-light); }
   .card-img { width: 100%; height: 64px; border-radius: 8px; background: #f0f0ee; display: flex; align-items: center; justify-content: center; margin-bottom: 8px; overflow: hidden; }
   .card-img img { width: 100%; height: 100%; object-fit: cover; }
-  .card-img-placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
   .card-name { font-size: 11px; font-weight: 500; color: var(--text); line-height: 1.35; margin-bottom: 2px; }
   .card-code { font-size: 10px; color: var(--text-muted); }
   .check-icon { position: absolute; top: 8px; right: 8px; width: 16px; height: 16px; border-radius: 50%; background: var(--accent); display: none; align-items: center; justify-content: center; }
@@ -86,243 +98,93 @@
   .success-pr { font-size: 15px; color: var(--accent); font-weight: 500; margin-bottom: 6px; }
   .success-sub { font-size: 13px; color: var(--text-muted); margin-bottom: 24px; }
   .btn-new { padding: 10px 24px; border-radius: var(--radius); border: none; background: var(--accent); color: white; font-size: 13px; font-weight: 500; cursor: pointer; }
-
-  /* PIPE SVG */
-  .pipe-green { display: block; }
-  .pipe-black { display: block; }
 </style>
 </head>
 <body>
 
-<div class="topbar">
-  <div class="topbar-logo">
-    <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect width="28" height="28" rx="7" fill="#1a6b3c"/>
-      <path d="M7 14h14M7 10h10M7 18h8" stroke="white" stroke-width="2" stroke-linecap="round"/>
-    </svg>
-    HAC Procurement
-  </div>
-  <div class="topbar-meta">
-    <span class="pr-badge" id="pr-display">PR-2026-—</span>
-    <div class="meta-item">Date: <strong id="date-display">—</strong></div>
-    <div class="meta-item">User: <strong id="user-display">—</strong></div>
+<div class="auth-screen" id="auth-screen">
+  <div class="auth-box">
+    <h2>HAC Procurement Portal</h2>
+    <p>Please enter your authorized email to access the system.</p>
+    <input type="email" id="auth-email" class="auth-input" placeholder="name@company.com">
+    <button class="btn-auth" id="auth-btn" onclick="verifyUser()">Login</button>
   </div>
 </div>
 
-<div class="container">
-  <div id="main-form">
-    <div class="project-wrap">
-      <label>Project</label>
-      <input type="text" id="project-input" placeholder="e.g. Villa Sheikh Zayed — Floor 1">
+<div id="app-wrapper" style="display: none;">
+  <div class="topbar">
+    <div class="topbar-logo">
+      <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="28" height="28" rx="7" fill="#1a6b3c"/>
+        <path d="M7 14h14M7 10h10M7 18h8" stroke="white" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      HAC Procurement
     </div>
-
-    <div class="filter-section">
-      <div class="filter-label">Category</div>
-      <div class="filter-tabs" id="filter-tabs">
-        <div class="filter-tab active" data-cat="ALL" onclick="filterCat(this)">All</div>
-      </div>
-    </div>
-
-    <div class="grid-label">Select materials and enter quantity</div>
-    <div class="grid" id="materials-grid">
-      <div class="loading">Loading materials...</div>
-    </div>
-
-    <div class="summary" id="summary">
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="2,8 6,12 14,4"/></svg>
-      <span id="summary-text"></span>
-    </div>
-
-    <div class="actions">
-      <button class="btn-clear" onclick="clearAll()">Clear</button>
-      <button class="btn-submit" id="submit-btn" onclick="submitOrder()">
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><line x1="2" y1="7" x2="12" y2="7"/><polyline points="8,3 12,7 8,11"/></svg>
-        Submit Request
-      </button>
+    <div class="topbar-meta">
+      <span class="pr-badge" id="pr-display">PR-2026-—</span>
+      <div class="meta-item">Date: <strong id="date-display">—</strong></div>
+      <div class="meta-item">User: <strong id="user-display">—</strong></div>
     </div>
   </div>
 
-  <div class="success-screen" id="success-screen">
-    <div class="success-icon">
-      <svg viewBox="0 0 28 28"><polyline points="4,14 10,20 24,8"/></svg>
-    </div>
-    <div class="success-title">Request Submitted!</div>
-    <div class="success-pr" id="success-pr"></div>
-    <div class="success-sub">An email notification has been sent.</div>
-    <button class="btn-new" onclick="newRequest()">New Request</button>
-  </div>
-</div>
-
-<script>
-const API_URL = 'https://script.google.com/macros/s/AKfycbyCNCmHawUWwIfwiSxEQiZEzUebzKh4hvhy0URoPxOlhfw2F4CjwCX9dB9FLXaNzR4e4Q/exec';
-
-let materials = [];
-let categories = [];
-let currentCat = 'ALL';
-let rowCounter = 1;
-
-// Init
-window.onload = () => {
-  const now = new Date();
-  document.getElementById('date-display').textContent = now.toLocaleDateString('en-GB');
-  document.getElementById('user-display').textContent = 'Loading...';
-  loadMaterials();
-};
-
-function updatePRDisplay() {
-  const year = new Date().getFullYear();
-  const num = String(rowCounter).padStart(3, '0');
-  document.getElementById('pr-display').textContent = `PR-${year}-${num}`;
-}
-
-function loadMaterials() {
-  fetch(`${API_URL}?action=getMaterials`)
-    .then(r => r.json())
-    .then(res => {
-      if (res.success) {
-        materials = res.data;
-        categories = [...new Set(materials.map(m => m.category).filter(Boolean))];
-        buildCategoryTabs();
-        renderGrid('ALL');
-        updatePRDisplay();
-      }
-    })
-    .catch(() => {
-      document.getElementById('materials-grid').innerHTML = '<div class="loading">Could not load materials. Check API URL.</div>';
-    });
-}
-
-function buildCategoryTabs() {
-  const tabs = document.getElementById('filter-tabs');
-  categories.forEach(cat => {
-    const tab = document.createElement('div');
-    tab.className = 'filter-tab';
-    tab.dataset.cat = cat;
-    tab.textContent = cat;
-    tab.onclick = () => filterCat(tab);
-    tabs.appendChild(tab);
-  });
-}
-
-function filterCat(pill) {
-  document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
-  pill.classList.add('active');
-  currentCat = pill.dataset.cat;
-  renderGrid(currentCat);
-}
-
-function renderGrid(cat) {
-  const grid = document.getElementById('materials-grid');
-  const filtered = cat === 'ALL' ? materials : materials.filter(m => m.category === cat);
-  
-  grid.innerHTML = filtered.map(m => `
-    <div class="card" data-code="${m.code}" onclick="toggleCard(this, event)">
-      <div class="check-icon">
-        <svg viewBox="0 0 10 10"><polyline points="1,5 4,8 9,2" stroke-width="2"/></svg>
+  <div class="container" id="main-container" style="display: block;">
+    <div id="main-form">
+      <div class="project-fields-row">
+        <div class="project-wrap">
+          <label>Project</label>
+          <input type="text" id="project-input" placeholder="e.g. Juin Park Offices">
+        </div>
+        
+        <div class="project-wrap">
+          <label>Location</label>
+          <select id="location-input">
+            <option value="" disabled selected>Select City</option>
+            <option value="Riyadh">Riyadh (الرياض)</option>
+            <option value="Jeddah">Jeddah (جدة)</option>
+            <option value="Mecca">Mecca (مكة المكرمة)</option>
+            <option value="Medina">Medina (المدينة المنورة)</option>
+            <option value="Dammam">Dammam (الدمام)</option>
+            <option value="Khobar">Khobar (الخبر)</option>
+            <option value="Abha">Abha (أبها)</option>
+            <option value="Tabuk">Tabuk (تبوك)</option>
+            <option value="Buraidah">Buraidah (بريدة)</option>
+            <option value="Hail">Hail (حائل)</option>
+            <option value="Jazan">Jazan (جازان)</option>
+            <option value="Najran">Najran (نجران)</option>
+            <option value="Taif">Taif (الطائف)</option>
+            <option value="Jubail">Jubail (الجبيل)</option>
+          </select>
+        </div>
       </div>
-      <div class="card-img">
-        ${m.image ? `<img src="${m.image}" alt="${m.description}" onerror="this.parentElement.innerHTML='${pipeSVG(m.type)}'">` : pipeSVG(m.type)}
+
+      <div class="filter-section">
+        <div class="filter-label">Category</div>
+        <div class="filter-tabs" id="filter-tabs">
+          <div class="filter-tab active" data-cat="ALL" onclick="filterCat(this)">All</div>
+        </div>
       </div>
-      <div class="card-name">${m.description}</div>
-      <div class="card-code">${m.code}</div>
-      <div class="qty-row">
-        <input type="number" min="1" placeholder="Qty" onclick="event.stopPropagation()">
+
+      <div class="grid-label">Select materials and enter quantity</div>
+      <div class="grid" id="materials-grid">
+        <div class="loading">Loading materials...</div>
+      </div>
+
+      <div class="summary" id="summary">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="2,8 6,12 14,4"/></svg>
+        <span id="summary-text"></span>
+      </div>
+
+      <div class="actions">
+        <button class="btn-clear" onclick="clearAll()">Clear</button>
+        <button class="btn-submit" id="submit-btn" onclick="submitOrder()">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><line x1="2" y1="7" x2="12" y2="7"/><polyline points="8,3 12,7 8,11"/></svg>
+          Submit Request
+        </button>
       </div>
     </div>
-  `).join('');
-}
 
-function pipeSVG(type) {
-  const color = type && type.includes('BLACK') ? '#333' : '#2d9e6b';
-  const light = type && type.includes('BLACK') ? '#555' : '#3db882';
-  return `<svg viewBox="0 0 100 50" width="90" height="45"><rect x="4" y="16" width="92" height="18" rx="9" fill="${color}"/><ellipse cx="50" cy="16" rx="46" ry="9" fill="${light}"/></svg>`;
-}
-
-function toggleCard(card, event) {
-  if (event.target.tagName === 'INPUT') return;
-  card.classList.toggle('selected');
-  if (card.classList.contains('selected')) {
-    card.querySelector('input').focus();
-  }
-  updateSummary();
-}
-
-function updateSummary() {
-  const selected = document.querySelectorAll('.card.selected');
-  const summary = document.getElementById('summary');
-  if (selected.length > 0) {
-    summary.classList.add('show');
-    document.getElementById('summary-text').textContent = `${selected.length} material${selected.length > 1 ? 's' : ''} selected`;
-  } else {
-    summary.classList.remove('show');
-  }
-}
-
-function clearAll() {
-  document.querySelectorAll('.card').forEach(c => {
-    c.classList.remove('selected');
-    const input = c.querySelector('input');
-    if (input) input.value = '';
-  });
-  document.getElementById('project-input').value = '';
-  updateSummary();
-}
-
-function submitOrder() {
-  const project = document.getElementById('project-input').value.trim();
-  if (!project) { alert('Please enter a project name.'); return; }
-
-  const selected = document.querySelectorAll('.card.selected');
-  if (selected.length === 0) { alert('Please select at least one material.'); return; }
-
-  const orders = [];
-  let valid = true;
-  selected.forEach(card => {
-    const qty = card.querySelector('input').value;
-    if (!qty || qty <= 0) { valid = false; return; }
-    orders.push({
-      code: card.dataset.code,
-      description: card.querySelector('.card-name').textContent,
-      qty: qty
-    });
-  });
-
-  if (!valid) { alert('Please enter quantity for all selected materials.'); return; }
-
-  const btn = document.getElementById('submit-btn');
-  btn.disabled = true;
-  btn.textContent = 'Submitting...';
-
-  const params = new URLSearchParams({
-    action: 'submitOrder',
-    project: project,
-    requester: 'User',
-    orders: JSON.stringify(orders)
-  });
-
-  fetch(`${API_URL}?${params}`)
-    .then(r => r.json())
-    .then(res => {
-      if (res.success) {
-        document.getElementById('main-form').style.display = 'none';
-        document.getElementById('success-screen').classList.add('show');
-        document.getElementById('success-pr').textContent = res.prNo;
-        rowCounter++;
-      }
-    })
-    .catch(() => alert('Error submitting. Please try again.'))
-    .finally(() => {
-      btn.disabled = false;
-      btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><line x1="2" y1="7" x2="12" y2="7"/><polyline points="8,3 12,7 8,11"/></svg> Submit Request';
-    });
-}
-
-function newRequest() {
-  document.getElementById('main-form').style.display = 'block';
-  document.getElementById('success-screen').classList.remove('show');
-  clearAll();
-  updatePRDisplay();
-}
-</script>
-</body>
-</html>
+    <div class="success-screen" id="success-screen">
+      <div class="success-icon">
+        <svg viewBox="0 0 28 28"><polyline points="4,14 10,20 24,8"/></svg>
+      </div>
+      <div class="success-title">Request Submitted
