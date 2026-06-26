@@ -197,7 +197,8 @@
 </div>
 
 <script>
-const API_URL = 'https://script.google.com/macros/s/AKfycbzumrWXNK3kR-SvaHyRjvrcnHGkl31ybsPsD2NVgRUA_IdIJ6W71qbHqnvCItMcCNw2eg/exec';
+// الرابط الجديد الخاص بك بعد التحديث والربط بالشيت الجديد مباشرة
+const API_URL = 'https://script.google.com/macros/s/AKfycbxWmkqSzFXDzZ7n-oQzZZd_zbu8aelaOcYWVjkwglp349zKTvGsxzl9XtCw1uPTd5bFDw/exec';
 
 const ALLOWED_USERS = [
   { email: 'abdalla.fawzy@hacksa.net', password: '123456789', name: 'Abdalla Fawzy' },
@@ -253,10 +254,12 @@ function loadMaterials() {
         buildCategoryTabs();
         renderGrid('ALL');
         updatePRDisplay();
+      } else {
+        document.getElementById('materials-grid').innerHTML = `<div class="loading">Error: ${res.message}</div>`;
       }
     })
     .catch(() => {
-      document.getElementById('materials-grid').innerHTML = '<div class="loading">Could not load materials. Check Apps Script URL.</div>';
+      document.getElementById('materials-grid').innerHTML = '<div class="loading">Could not load materials. Check Apps Script URL or Web App setup.</div>';
     });
 }
 
