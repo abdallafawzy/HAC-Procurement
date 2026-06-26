@@ -102,10 +102,10 @@
 </head>
 <body>
 
-<!-- شاشة تسجيل الدخول -->
+<!-- شاشة تسجيل الدخول المعدلة -->
 <div class="auth-screen" id="auth-screen">
   <div class="auth-box">
-    <h2>HAC Procurement Portal</h2>
+    <h2>HAC Procurement</h2>
     <p>Please enter your authorized credentials to access.</p>
     <input type="email" id="auth-email" class="auth-input" placeholder="name@company.com">
     <input type="password" id="auth-password" class="auth-input" placeholder="Enter Password">
@@ -126,7 +126,6 @@
     <div class="topbar-meta">
       <span class="pr-badge" id="pr-display">PR-2026-—</span>
       <div class="meta-item">Date: <strong id="date-display">—</strong></div>
-      <!-- هنا يعرض الـ User Name المسترجع من قاعدة البيانات -->
       <div class="meta-item">User: <strong id="user-display">—</strong></div>
     </div>
   </div>
@@ -200,7 +199,6 @@
 </div>
 
 <script>
-// ⚠️ استبدل هذا الرابط برابط الـ Web App الـ جديد اللي طلعلك بعد الـ Deploy
 const API_URL = 'https://script.google.com/macros/s/AKfycbyCNCmHawUWwIfwiSxEQiZEzUebzKh4hvhy0URoPxOlhfw2F4CjwCX9dB9FLXaNzR4e4Q/exec';
 
 let currentUserName = ''; 
@@ -224,7 +222,7 @@ function verifyUser() {
     .then(r => r.json())
     .then(res => {
       if(res.authorized) {
-        currentUserName = res.userName; // حفظ اسم المستخدم الراجع من الـ Users sheet
+        currentUserName = res.userName; 
         document.getElementById('auth-screen').style.display = 'none';
         document.getElementById('app-wrapper').style.display = 'block';
         initApp();
@@ -244,7 +242,7 @@ function verifyUser() {
 function initApp() {
   const now = new Date();
   document.getElementById('date-display').textContent = now.toLocaleDateString('en-GB');
-  document.getElementById('user-display').textContent = currentUserName; // عرض اسم المهندس في التوب بار
+  document.getElementById('user-display').textContent = currentUserName; 
   loadMaterials();
 }
 
@@ -280,7 +278,7 @@ function buildCategoryTabs() {
     tab.dataset.cat = cat;
     tab.textContent = cat;
     tab.onclick = () => filterCat(tab);
-    tabs.appendChild(tab);
+    tabs.appendChild(tabs.appendChild(tab));
   });
 }
 
@@ -395,7 +393,7 @@ function submitOrder() {
     action: 'submitOrder',
     project: project,
     location: location,
-    requester: currentUserName, // هنا يتم إرسال الـ User Name بدلاً من الإيميل لشيت الـ Orders
+    requester: currentUserName, 
     orders: JSON.stringify(orders)
   });
 
