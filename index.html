@@ -1,123 +1,174 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HAC Procurement</title>
-<style>
-  :root { --bg: #f5f5f3; --surface: #ffffff; --border: #e2e2e0; --text: #1a1a1a; --text-muted: #888; --accent: #1a6b3c; --accent-light: #e8f5ee; --accent-border: #a3d4b5; --radius: 10px; --shadow: 0 1px 3px rgba(0,0,0,0.08); }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
-  .auth-screen { display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; }
-  .auth-box { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px; width: 100%; max-width: 400px; text-align: center; box-shadow: var(--shadow); }
-  .auth-input { width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: var(--radius); font-size: 14px; margin-bottom: 16px; }
-  .btn-auth { width: 100%; padding: 12px; background: var(--accent); color: white; border: none; border-radius: var(--radius); cursor: pointer; }
-  .topbar { background: var(--surface); border-bottom: 1px solid var(--border); padding: 12px 24px; display: flex; align-items: center; justify-content: space-between; }
-  .container { max-width: 900px; margin: 0 auto; padding: 24px 16px; }
-  .project-fields-row { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; margin-bottom: 20px; }
-  .project-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px 16px; display: flex; align-items: center; gap: 12px; }
-  .project-wrap input, .project-wrap select { flex: 1; border: none; outline: none; background: transparent; }
-  .filter-tabs { display: flex; gap: 6px; margin-bottom: 20px; flex-wrap: wrap; }
-  .filter-tab { padding: 6px 14px; border-radius: 20px; font-size: 12px; cursor: pointer; border: 1px solid var(--border); background: var(--surface); }
-  .filter-tab.active { background: var(--accent-light); border-color: var(--accent-border); color: var(--accent); }
-  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; }
-  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 10px; cursor: pointer; position: relative; }
-  .card.selected { border: 1.5px solid var(--accent); background: var(--accent-light); }
-  .card-img { width: 100%; height: 64px; border-radius: 8px; background: #f0f0ee; margin-bottom: 8px; overflow: hidden; display: flex; align-items: center; justify-content: center; }
-  .card-img img { max-width: 100%; max-height: 100%; object-fit: cover; }
-  .check-icon { position: absolute; top: 8px; right: 8px; width: 16px; height: 16px; border-radius: 50%; background: var(--accent); color: white; display: none; align-items: center; justify-content: center; font-size: 10px; }
-  .card.selected .check-icon { display: flex; }
-  .qty-row { display: none; margin-top: 8px; border-top: 1px solid var(--accent-border); padding-top: 8px; }
-  .card.selected .qty-row { display: block; }
-  .qty-row input { width: 100%; border: 1px solid var(--accent-border); border-radius: 4px; padding: 4px; text-align: center; }
-  .actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px; }
-  .btn-submit { padding: 10px 20px; background: var(--accent); color: white; border: none; border-radius: var(--radius); cursor: pointer; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HAC Procurement</title>
+    <style>
+        /* (احتفظ بنفس التنسيقات التي أرسلتها فهي جيدة، فقط تأكد من عدم تكرار تعريف الـ :root) */
+    </style>
 </head>
 <body>
 
 <div class="auth-screen" id="auth-screen">
-  <div class="auth-box">
-    <h2>HAC Procurement</h2>
-    <input type="email" id="auth-email" class="auth-input" placeholder="Email">
-    <input type="password" id="auth-password" class="auth-input" placeholder="Password">
-    <button class="btn-auth" onclick="verifyUser()">Login</button>
-  </div>
+    <div class="auth-box">
+        <h2>HAC Procurement</h2>
+        <p>Please enter your authorized credentials.</p>
+        <input type="email" id="auth-email" class="auth-input" placeholder="name@company.com">
+        <input type="password" id="auth-password" class="auth-input" placeholder="Enter Password">
+        <button class="btn-auth" id="auth-btn" onclick="verifyUser()">Login</button>
+    </div>
 </div>
 
 <div id="app-wrapper" style="display: none;">
-  <div class="topbar">
-    <div class="topbar-logo">HAC Procurement</div>
-    <div class="meta-item">User: <strong id="user-display"></strong></div>
-  </div>
-  <div class="container">
-    <div class="project-fields-row">
-      <div class="project-wrap"><label>Project</label><input type="text" id="project-input" oninput="saveFields()" placeholder="Project Name"></div>
-      <div class="project-wrap"><label>Location</label><select id="location-input" onchange="saveFields()"><option>Riyadh</option><option>Jeddah</option></select></div>
+    <div class="topbar">
+        <div class="topbar-logo">HAC Procurement</div>
+        <div class="topbar-meta">
+            <span class="pr-badge" id="pr-display">PR-2026-—</span>
+            <div class="meta-item">User: <strong id="user-display">—</strong></div>
+        </div>
     </div>
-    <div class="filter-tabs" id="filter-tabs"></div>
-    <div class="grid" id="materials-grid"></div>
-    <div class="actions">
-      <button onclick="clearAll()">Clear</button>
-      <button class="btn-submit" onclick="submitOrder()">Submit Request</button>
+    
+    <div class="container" id="main-container">
+        <div id="main-form">
+            <div class="project-fields-row">
+                <div class="project-wrap">
+                    <label>Project</label>
+                    <input type="text" id="project-input" placeholder="Project Name">
+                </div>
+                <div class="project-wrap">
+                    <label>Location</label>
+                    <select id="location-input">
+                        <option value="Riyadh">Riyadh</option>
+                        <option value="Jeddah">Jeddah</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="filter-section">
+                <div class="filter-label">Category</div>
+                <div class="filter-tabs" id="filter-tabs"></div>
+            </div>
+
+            <div class="grid" id="materials-grid">
+                <div class="loading">Loading materials...</div>
+            </div>
+
+            <div class="summary" id="summary">
+                <span id="summary-text"></span>
+            </div>
+
+            <div class="actions">
+                <button class="btn-clear" onclick="clearAll()">Clear</button>
+                <button class="btn-submit" id="submit-btn" onclick="submitOrder()">Submit Request</button>
+            </div>
+        </div>
+        
+        <div class="success-screen" id="success-screen">
+            <h3>Request Submitted!</h3>
+            <button class="btn-new" onclick="location.reload()">New Request</button>
+        </div>
     </div>
-  </div>
 </div>
 
 <script>
-const API_URL = 'https://script.google.com/macros/s/AKfycbyCNCmHawUWwIfwiSxEQiZEzUebzKh4hvhy0URoPxOlhfw2F4CjwCX9dB9FLXaNzR4e4Q/exec';
-const ALLOWED_USERS = [{email: 'abdalla.fawzy@hacksa.net', password: '123456789', name: 'Abdalla Fawzy'}];
-let materials = [];
+    const API_URL = 'https://script.google.com/macros/s/AKfycbyCNCmHawUWwIfwiSxEQiZEzUebzKh4hvhy0URoPxOlhfw2F4CjwCX9dB9FLXaNzR4e4Q/exec';
+    const ALLOWED_USERS = [
+        { email: 'abdalla.fawzy@hacksa.net', password: '123456789', name: 'Abdalla Fawzy' },
+        { email: 'm.shikhani@hacksa.net', password: '123456789', name: 'M. Shikhani' }
+    ];
 
-window.onload = () => {
-  const savedUser = localStorage.getItem('hac_user');
-  if (savedUser) {
-    document.getElementById('auth-screen').style.display = 'none';
-    document.getElementById('app-wrapper').style.display = 'block';
-    document.getElementById('user-display').textContent = savedUser;
-    document.getElementById('project-input').value = localStorage.getItem('hac_proj') || '';
-    loadMaterials();
-  }
-};
+    let materials = [];
+    let currentCat = 'ALL';
 
-function verifyUser() {
-  const u = ALLOWED_USERS.find(x => x.email === document.getElementById('auth-email').value.trim().toLowerCase() && x.password === document.getElementById('auth-password').value);
-  if(u) { localStorage.setItem('hac_user', u.name); location.reload(); } else alert('Denied');
-}
+    // التحقق عند التحميل
+    window.onload = () => {
+        const savedUser = localStorage.getItem('hac_user');
+        if (savedUser) {
+            showApp(savedUser);
+        }
+    };
 
-function loadMaterials() {
-  fetch(API_URL + '?action=getMaterials').then(r => r.json()).then(res => {
-    materials = res.data.map(m => ({ ...m, quantity: localStorage.getItem('qty_' + m.code) || '' }));
-    renderTabs();
-    renderGrid('ALL');
-  });
-}
+    function showApp(name) {
+        document.getElementById('auth-screen').style.display = 'none';
+        document.getElementById('app-wrapper').style.display = 'block';
+        document.getElementById('user-display').textContent = name;
+        document.getElementById('project-input').value = localStorage.getItem('hac_project') || '';
+        document.getElementById('location-input').value = localStorage.getItem('hac_location') || 'Riyadh';
+        loadMaterials();
+    }
 
-function renderTabs() {
-  const cats = ['ALL', ...new Set(materials.map(m => m.category))];
-  document.getElementById('filter-tabs').innerHTML = cats.map(c => 
-    `<div class="filter-tab" onclick="renderGrid('${c}')">${c}</div>`).join('');
-}
+    function verifyUser() {
+        const email = document.getElementById('auth-email').value.trim().toLowerCase();
+        const pass = document.getElementById('auth-password').value.trim();
+        const user = ALLOWED_USERS.find(u => u.email === email && u.password === pass);
+        if (user) {
+            localStorage.setItem('hac_user', user.name);
+            showApp(user.name);
+        } else {
+            alert('Access Denied');
+        }
+    }
 
-function renderGrid(cat) {
-  const grid = document.getElementById('materials-grid');
-  const filtered = cat === 'ALL' ? materials : materials.filter(m => m.category === cat);
-  grid.innerHTML = filtered.map(m => `
-    <div class="card ${m.quantity ? 'selected' : ''}" onclick="this.classList.add('selected'); this.querySelector('.qty-row').style.display='block'">
-      <div class="card-img"><img src="${m.image || ''}"></div>
-      <div>${m.name}</div>
-      <div class="check-icon">✓</div>
-      <div class="qty-row" onclick="event.stopPropagation()">
-        <input type="number" placeholder="Qty" value="${m.quantity}" oninput="updateQty('${m.code}', this.value)">
-      </div>
-    </div>
-  `).join('');
-}
+    function loadMaterials() {
+        fetch(API_URL + '?action=getMaterials')
+            .then(r => r.json())
+            .then(res => {
+                materials = res.data.map(m => ({
+                    ...m,
+                    quantity: localStorage.getItem('qty_' + m.code) || '',
+                    selected: !!localStorage.getItem('qty_' + m.code)
+                }));
+                renderTabs();
+                renderGrid('ALL');
+            });
+    }
 
-function updateQty(code, val) { localStorage.setItem('qty_' + code, val); }
-function saveFields() { localStorage.setItem('hac_proj', document.getElementById('project-input').value); }
-function clearAll() { localStorage.clear(); location.reload(); }
-function submitOrder() { alert('Submitted!'); }
+    function renderTabs() {
+        const cats = ['ALL', ...new Set(materials.map(m => m.category))];
+        document.getElementById('filter-tabs').innerHTML = cats.map(c => 
+            `<div class="filter-tab ${c==='ALL'?'active':''}" onclick="filterCat('${c}')">${c}</div>`).join('');
+    }
+
+    function filterCat(cat) {
+        currentCat = cat;
+        renderGrid(cat);
+    }
+
+    function renderGrid(cat) {
+        const grid = document.getElementById('materials-grid');
+        const filtered = cat === 'ALL' ? materials : materials.filter(m => m.category === cat);
+        grid.innerHTML = filtered.map(m => `
+            <div class="card ${m.selected ? 'selected' : ''}" onclick="toggleCard('${m.code}')">
+                <div class="card-name">${m.name}</div>
+                <div class="card-code">${m.code}</div>
+                <div class="qty-row" onclick="event.stopPropagation()">
+                    <input type="number" placeholder="Qty" value="${m.quantity}" oninput="updateQty('${m.code}', this.value)">
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function toggleCard(code) {
+        const m = materials.find(x => x.code === code);
+        m.selected = !m.selected;
+        renderGrid(currentCat);
+    }
+
+    function updateQty(code, val) {
+        localStorage.setItem('qty_' + code, val);
+        materials.find(m => m.code === code).quantity = val;
+    }
+
+    function clearAll() {
+        localStorage.clear();
+        location.reload();
+    }
+
+    function submitOrder() {
+        // أضف هنا منطق الـ submitOrder الخاص بك
+        alert('Order logic submitted!');
+    }
 </script>
 </body>
 </html>
