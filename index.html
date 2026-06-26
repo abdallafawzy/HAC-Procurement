@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HAC Procurement</title>
+<style>
+  :root {
+    --bg: #f5f5f3;
+    --surface: #ffffff;
+    --border: #e2e2e0;
+    --text: #1a1a1a;
+    --text-muted: #888;
+    --accent: #1a6b3c;
+    --accent-light: #e8f5ee;
+    --accent-border: #a3d4b5;
+    --radius: 10px;
+    --shadow: 0 1px 3px rgba(0,0,0,0.08);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+  /* TOPBAR */
+  .topbar { background: var(--surface); border-bottom: 1px solid var(--border); padding: 12px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+  .topbar-logo { display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 600; color: var(--accent); }
+  .topbar-logo svg { width: 28px; height: 28px; }
+  .topbar-meta { display: flex; align-items: center; gap: 20px; }
+  .meta-item { font-size: 12px; color: var(--text-muted); }
+  .meta-item strong { color: var(--text); font-weight: 500; }
+  .pr-badge { background: var(--accent-light); border: 1px solid var(--accent-border); color: var(--accent); font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 20px; }
+
+  /* BODY */
+  .container { max-width: 900px; margin: 0 auto; padding: 24px 16px; }
+
+  /* PROJECT FIELD */
+  .project-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 20px; margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
+  .project-wrap label { font-size: 13px; font-weight: 500; color: var(--text-muted); white-space: nowrap; }
+  .project-wrap input { flex: 1; border: none; outline: none; font-size: 15px; font-weight: 500; color: var(--text); background: transparent; }
+  .project-wrap input::placeholder { color: #ccc; font-weight: 400; }
+
+  /* FILTER TABS */
+  .filter-section { margin-bottom: 14px; }
+  .filter-label { font-size: 11px; font-weight: 500; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+  .filter-tabs { display: flex; gap: 6px; flex-wrap: wrap; }
+  .filter-tab { padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 500; cursor: pointer; border: 1px solid var(--border); background: var(--surface); color: var(--text-muted); transition: all 0.15s; }
+  .filter-tab.active { background: var(--accent-light); border-color: var(--accent-border); color: var(--accent); }
+
+  /* MATERIALS GRID */
+  .grid-label { font-size: 11px; font-weight: 500; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; margin-bottom: 20px; }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 10px; cursor: pointer; transition: border-color 0.15s; position: relative; }
+  .card:hover { border-color: var(--accent-border); }
+  .card.selected { border: 1.5px solid var(--accent); background: var(--accent-light); }
+  .card-img { width: 100%; height: 64px; border-radius: 8px; background: #f0f0ee; display: flex; align-items: center; justify-content: center; margin-bottom: 8px; overflow: hidden; }
+  .card-img img { width: 100%; height: 100%; object-fit: cover; }
+  .card-img-placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
+  .card-name { font-size: 11px; font-weight: 500; color: var(--text); line-height: 1.35; margin-bottom: 2px; }
+  .card-code { font-size: 10px; color: var(--text-muted); }
+  .check-icon { position: absolute; top: 8px; right: 8px; width: 16px; height: 16px; border-radius: 50%; background: var(--accent); display: none; align-items: center; justify-content: center; }
+  .card.selected .check-icon { display: flex; }
+  .check-icon svg { width: 10px; height: 10px; stroke: white; fill: none; }
+  .qty-row { display: none; margin-top: 8px; border-top: 1px solid var(--accent-border); padding-top: 8px; }
+  .card.selected .qty-row { display: block; }
+  .qty-row input { width: 100%; height: 30px; border-radius: 6px; border: 1px solid var(--accent-border); background: white; color: var(--text); font-size: 13px; font-weight: 500; padding: 0 8px; text-align: center; outline: none; }
+  .qty-row input:focus { border-color: var(--accent); }
+
+  /* SUMMARY */
+  .summary { background: var(--accent-light); border: 1px solid var(--accent-border); border-radius: var(--radius); padding: 10px 16px; font-size: 13px; color: var(--accent); display: none; align-items: center; gap: 8px; margin-bottom: 16px; }
+  .summary.show { display: flex; }
+
+  /* ACTIONS */
+  .actions { display: flex; gap: 10px; justify-content: flex-end; padding-top: 16px; border-top: 1px solid var(--border); }
+  .btn-clear { padding: 9px 20px; border-radius: var(--radius); border: 1px solid var(--border); background: var(--surface); color: var(--text); font-size: 13px; cursor: pointer; }
+  .btn-submit { padding: 9px 24px; border-radius: var(--radius); border: none; background: var(--accent); color: white; font-size: 13px; font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 6px; }
+  .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  /* LOADING */
+  .loading { text-align: center; padding: 40px; color: var(--text-muted); font-size: 14px; }
+
+  /* SUCCESS */
+  .success-screen { display: none; text-align: center; padding: 60px 20px; }
+  .success-screen.show { display: block; }
+  .success-icon { width: 60px; height: 60px; border-radius: 50%; background: var(--accent-light); display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; }
+  .success-icon svg { width: 28px; height: 28px; stroke: var(--accent); fill: none; stroke-width: 2; }
+  .success-title { font-size: 20px; font-weight: 600; color: var(--text); margin-bottom: 8px; }
+  .success-pr { font-size: 15px; color: var(--accent); font-weight: 500; margin-bottom: 6px; }
+  .success-sub { font-size: 13px; color: var(--text-muted); margin-bottom: 24px; }
+  .btn-new { padding: 10px 24px; border-radius: var(--radius); border: none; background: var(--accent); color: white; font-size: 13px; font-weight: 500; cursor: pointer; }
+
+  /* PIPE SVG */
+  .pipe-green { display: block; }
+  .pipe-black { display: block; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-logo">
+    <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="28" height="28" rx="7" fill="#1a6b3c"/>
+      <path d="M7 14h14M7 10h10M7 18h8" stroke="white" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+    HAC Procurement
+  </div>
+  <div class="topbar-meta">
+    <span class="pr-badge" id="pr-display">PR-2026-—</span>
+    <div class="meta-item">Date: <strong id="date-display">—</strong></div>
+    <div class="meta-item">User: <strong id="user-display">—</strong></div>
+  </div>
+</div>
+
+<div class="container">
+  <div id="main-form">
+    <div class="project-wrap">
+      <label>Project</label>
+      <input type="text" id="project-input" placeholder="e.g. Villa Sheikh Zayed — Floor 1">
+    </div>
+
+    <div class="filter-section">
+      <div class="filter-label">Category</div>
+      <div class="filter-tabs" id="filter-tabs">
+        <div class="filter-tab active" data-cat="ALL" onclick="filterCat(this)">All</div>
+      </div>
+    </div>
+
+    <div class="grid-label">Select materials and enter quantity</div>
+    <div class="grid" id="materials-grid">
+      <div class="loading">Loading materials...</div>
+    </div>
+
+    <div class="summary" id="summary">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="2,8 6,12 14,4"/></svg>
+      <span id="summary-text"></span>
+    </div>
+
+    <div class="actions">
+      <button class="btn-clear" onclick="clearAll()">Clear</button>
+      <button class="btn-submit" id="submit-btn" onclick="submitOrder()">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><line x1="2" y1="7" x2="12" y2="7"/><polyline points="8,3 12,7 8,11"/></svg>
+        Submit Request
+      </button>
+    </div>
+  </div>
+
+  <div class="success-screen" id="success-screen">
+    <div class="success-icon">
+      <svg viewBox="0 0 28 28"><polyline points="4,14 10,20 24,8"/></svg>
+    </div>
+    <div class="success-title">Request Submitted!</div>
+    <div class="success-pr" id="success-pr"></div>
+    <div class="success-sub">An email notification has been sent.</div>
+    <button class="btn-new" onclick="newRequest()">New Request</button>
+  </div>
+</div>
+
+<script>
+const API_URL = 'https://script.google.com/macros/s/AKfycbyCNCmHawUWwIfwiSxEQiZEzUebzKh4hvhy0URoPxOlhfw2F4CjwCX9dB9FLXaNzR4e4Q/exec';
+
+let materials = [];
+let categories = [];
+let currentCat = 'ALL';
+let rowCounter = 1;
+
+// Init
+window.onload = () => {
+  const now = new Date();
+  document.getElementById('date-display').textContent = now.toLocaleDateString('en-GB');
+  document.getElementById('user-display').textContent = 'Loading...';
+  loadMaterials();
+};
+
+function updatePRDisplay() {
+  const year = new Date().getFullYear();
+  const num = String(rowCounter).padStart(3, '0');
+  document.getElementById('pr-display').textContent = `PR-${year}-${num}`;
+}
+
+function loadMaterials() {
+  fetch(`${API_URL}?action=getMaterials`)
+    .then(r => r.json())
+    .then(res => {
+      if (res.success) {
+        materials = res.data;
+        categories = [...new Set(materials.map(m => m.category).filter(Boolean))];
+        buildCategoryTabs();
+        renderGrid('ALL');
+        updatePRDisplay();
+      }
+    })
+    .catch(() => {
+      document.getElementById('materials-grid').innerHTML = '<div class="loading">Could not load materials. Check API URL.</div>';
+    });
+}
+
+function buildCategoryTabs() {
+  const tabs = document.getElementById('filter-tabs');
+  categories.forEach(cat => {
+    const tab = document.createElement('div');
+    tab.className = 'filter-tab';
+    tab.dataset.cat = cat;
+    tab.textContent = cat;
+    tab.onclick = () => filterCat(tab);
+    tabs.appendChild(tab);
+  });
+}
+
+function filterCat(pill) {
+  document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+  pill.classList.add('active');
+  currentCat = pill.dataset.cat;
+  renderGrid(currentCat);
+}
+
+function renderGrid(cat) {
+  const grid = document.getElementById('materials-grid');
+  const filtered = cat === 'ALL' ? materials : materials.filter(m => m.category === cat);
+  
+  grid.innerHTML = filtered.map(m => `
+    <div class="card" data-code="${m.code}" onclick="toggleCard(this, event)">
+      <div class="check-icon">
+        <svg viewBox="0 0 10 10"><polyline points="1,5 4,8 9,2" stroke-width="2"/></svg>
+      </div>
+      <div class="card-img">
+        ${m.image ? `<img src="${m.image}" alt="${m.description}" onerror="this.parentElement.innerHTML='${pipeSVG(m.type)}'">` : pipeSVG(m.type)}
+      </div>
+      <div class="card-name">${m.description}</div>
+      <div class="card-code">${m.code}</div>
+      <div class="qty-row">
+        <input type="number" min="1" placeholder="Qty" onclick="event.stopPropagation()">
+      </div>
+    </div>
+  `).join('');
+}
+
+function pipeSVG(type) {
+  const color = type && type.includes('BLACK') ? '#333' : '#2d9e6b';
+  const light = type && type.includes('BLACK') ? '#555' : '#3db882';
+  return `<svg viewBox="0 0 100 50" width="90" height="45"><rect x="4" y="16" width="92" height="18" rx="9" fill="${color}"/><ellipse cx="50" cy="16" rx="46" ry="9" fill="${light}"/></svg>`;
+}
+
+function toggleCard(card, event) {
+  if (event.target.tagName === 'INPUT') return;
+  card.classList.toggle('selected');
+  if (card.classList.contains('selected')) {
+    card.querySelector('input').focus();
+  }
+  updateSummary();
+}
+
+function updateSummary() {
+  const selected = document.querySelectorAll('.card.selected');
+  const summary = document.getElementById('summary');
+  if (selected.length > 0) {
+    summary.classList.add('show');
+    document.getElementById('summary-text').textContent = `${selected.length} material${selected.length > 1 ? 's' : ''} selected`;
+  } else {
+    summary.classList.remove('show');
+  }
+}
+
+function clearAll() {
+  document.querySelectorAll('.card').forEach(c => {
+    c.classList.remove('selected');
+    const input = c.querySelector('input');
+    if (input) input.value = '';
+  });
+  document.getElementById('project-input').value = '';
+  updateSummary();
+}
+
+function submitOrder() {
+  const project = document.getElementById('project-input').value.trim();
+  if (!project) { alert('Please enter a project name.'); return; }
+
+  const selected = document.querySelectorAll('.card.selected');
+  if (selected.length === 0) { alert('Please select at least one material.'); return; }
+
+  const orders = [];
+  let valid = true;
+  selected.forEach(card => {
+    const qty = card.querySelector('input').value;
+    if (!qty || qty <= 0) { valid = false; return; }
+    orders.push({
+      code: card.dataset.code,
+      description: card.querySelector('.card-name').textContent,
+      qty: qty
+    });
+  });
+
+  if (!valid) { alert('Please enter quantity for all selected materials.'); return; }
+
+  const btn = document.getElementById('submit-btn');
+  btn.disabled = true;
+  btn.textContent = 'Submitting...';
+
+  const params = new URLSearchParams({
+    action: 'submitOrder',
+    project: project,
+    requester: 'User',
+    orders: JSON.stringify(orders)
+  });
+
+  fetch(`${API_URL}?${params}`)
+    .then(r => r.json())
+    .then(res => {
+      if (res.success) {
+        document.getElementById('main-form').style.display = 'none';
+        document.getElementById('success-screen').classList.add('show');
+        document.getElementById('success-pr').textContent = res.prNo;
+        rowCounter++;
+      }
+    })
+    .catch(() => alert('Error submitting. Please try again.'))
+    .finally(() => {
+      btn.disabled = false;
+      btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><line x1="2" y1="7" x2="12" y2="7"/><polyline points="8,3 12,7 8,11"/></svg> Submit Request';
+    });
+}
+
+function newRequest() {
+  document.getElementById('main-form').style.display = 'block';
+  document.getElementById('success-screen').classList.remove('show');
+  clearAll();
+  updatePRDisplay();
+}
+</script>
+</body>
+</html>
