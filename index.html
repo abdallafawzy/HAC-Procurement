@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HAC Procurement Portal</title>
+<title>HAC Procurement</title>
 <style>
   :root {
     --bg: #f5f5f3;
@@ -104,7 +104,7 @@
 
 <div class="auth-screen" id="auth-screen">
   <div class="auth-box">
-    <h2>HAC Procurement Portal</h2>
+    <h2>HAC Procurement</h2>
     <p>Please enter your authorized credentials to access.</p>
     <input type="email" id="auth-email" class="auth-input" placeholder="name@company.com">
     <input type="password" id="auth-password" class="auth-input" placeholder="Enter Password">
@@ -199,6 +199,12 @@
 <script>
 const API_URL = 'https://script.google.com/macros/s/AKfycbzumrWXNK3kR-SvaHyRjvrcnHGkl31ybsPsD2NVgRUA_IdIJ6W71qbHqnvCItMcCNw2eg/exec';
 
+const ALLOWED_USERS = [
+  { email: 'abdalla.fawzy@hacksa.net', password: '123456789', name: 'Abdalla Fawzy' },
+  { email: 'm.shikhani@hacksa.net', password: '123456789', name: 'M. Shikhani' },
+  { email: 'e.shikhani@hacksa.net', password: '123456789', name: 'E. Shikhani' }
+];
+
 let currentUserName = ''; 
 let materials = [];
 let categories = [];
@@ -206,35 +212,22 @@ let currentCat = 'ALL';
 let rowCounter = 1;
 
 function verifyUser() {
-  const emailInput = document.getElementById('auth-email').value.trim();
+  const emailInput = document.getElementById('auth-email').value.trim().toLowerCase();
   const passwordInput = document.getElementById('auth-password').value.trim();
   
   if(!emailInput) { alert('Please enter your email.'); return; }
   if(!passwordInput) { alert('Please enter your password.'); return; }
   
-  const authBtn = document.getElementById('auth-btn');
-  authBtn.disabled = true;
-  authBtn.textContent = 'Verifying...';
+  const user = ALLOWED_USERS.find(u => u.email === emailInput && u.password === passwordInput);
   
-  fetch(`${API_URL}?action=verifyUser&email=${encodeURIComponent(emailInput)}&password=${encodeURIComponent(passwordInput)}`)
-    .then(r => r.json())
-    .then(res => {
-      if(res.authorized) {
-        currentUserName = res.userName; 
-        document.getElementById('auth-screen').style.display = 'none';
-        document.getElementById('app-wrapper').style.display = 'block';
-        initApp();
-      } else {
-        alert('Access Denied: Invalid email or password.');
-        authBtn.disabled = false;
-        authBtn.textContent = 'Login';
-      }
-    })
-    .catch(() => {
-      alert('Access Denied: Invalid email or password. Please verify Apps Script configuration.');
-      authBtn.disabled = false;
-      authBtn.textContent = 'Login';
-    });
+  if(user) {
+    currentUserName = user.name; 
+    document.getElementById('auth-screen').style.display = 'none';
+    document.getElementById('app-wrapper').style.display = 'block';
+    initApp();
+  } else {
+    alert('Access Denied: Invalid email or password.');
+  }
 }
 
 function initApp() {
@@ -263,7 +256,7 @@ function loadMaterials() {
       }
     })
     .catch(() => {
-      document.getElementById('materials-grid').innerHTML = '<div class="loading">Could not load materials. Check Sheet Name setup.</div>';
+      document.getElementById('materials-grid').innerHTML = '<div class="loading">Could not load materials. Check Apps Script URL.</div>';
     });
 }
 
