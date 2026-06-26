@@ -17,13 +17,9 @@
     --radius: 10px;
     --shadow: 0 1px 3px rgba(0,0,0,0.08);
   }
-  :root { --bg: #f5f5f3; --surface: #ffffff; --border: #e2e2e0; --text: #1a1a1a; --text-muted: #888; --accent: #1a6b3c; --accent-light: #e8f5ee; --accent-border: #a3d4b5; --radius: 10px; }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
 
-  /* AUTH SCREEN */
-
-  /* AUTH */
   .auth-screen { display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; }
   .auth-box { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px; width: 100%; max-width: 400px; text-align: center; box-shadow: var(--shadow); }
   .auth-box h2 { font-size: 20px; color: var(--accent); margin-bottom: 12px; }
@@ -33,7 +29,6 @@
   .btn-auth { width: 100%; padding: 12px; background: var(--accent); color: white; border: none; border-radius: var(--radius); font-size: 14px; font-weight: 500; cursor: pointer; }
   .btn-auth:disabled { opacity: 0.6; cursor: not-allowed; }
 
-  /* TOPBAR */
   .topbar { background: var(--surface); border-bottom: 1px solid var(--border); padding: 12px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
   .topbar-logo { display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 600; color: var(--accent); }
   .topbar-logo svg { width: 28px; height: 28px; }
@@ -42,71 +37,48 @@
   .meta-item strong { color: var(--text); font-weight: 500; }
   .pr-badge { background: var(--accent-light); border: 1px solid var(--accent-border); color: var(--accent); font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 20px; }
 
-  /* BODY */
-  .auth-box { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px; width: 100%; max-width: 400px; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
-  .auth-input { width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 16px; outline: none; }
-  .btn-auth { width: 100%; padding: 12px; background: var(--accent); color: white; border: none; border-radius: var(--radius); cursor: pointer; }
-
-  /* APP */
-  .topbar { background: var(--surface); border-bottom: 1px solid var(--border); padding: 12px 24px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
   .container { max-width: 900px; margin: 0 auto; padding: 24px 16px; }
 
-  /* PROJECT ROW FIELDS */
   .project-fields-row { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; margin-bottom: 20px; }
   @media(max-width: 600px) { .project-fields-row { grid-template-columns: 1fr; } }
-
   .project-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px 16px; display: flex; align-items: center; gap: 12px; }
   .project-wrap label { font-size: 13px; font-weight: 500; color: var(--text-muted); white-space: nowrap; }
   .project-wrap input, .project-wrap select { flex: 1; border: none; outline: none; font-size: 15px; font-weight: 500; color: var(--text); background: transparent; width: 100%; }
   .project-wrap input::placeholder { color: #ccc; font-weight: 400; }
 
-  /* FILTER TABS */
   .filter-section { margin-bottom: 14px; }
   .filter-label { font-size: 11px; font-weight: 500; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
   .filter-tabs { display: flex; gap: 6px; flex-wrap: wrap; }
   .filter-tab { padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 500; cursor: pointer; border: 1px solid var(--border); background: var(--surface); color: var(--text-muted); transition: all 0.15s; }
-  .project-wrap input, .project-wrap select { flex: 1; border: none; outline: none; font-size: 15px; }
-
-  .filter-tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 20px; }
-  .filter-tab { padding: 6px 14px; border-radius: 20px; font-size: 12px; cursor: pointer; border: 1px solid var(--border); background: var(--surface); color: var(--text-muted); }
   .filter-tab.active { background: var(--accent-light); border-color: var(--accent-border); color: var(--accent); }
 
-  /* MATERIALS GRID */
   .grid-label { font-size: 11px; font-weight: 500; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; }
-
   .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; margin-bottom: 20px; }
   .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 10px; cursor: pointer; transition: border-color 0.15s; position: relative; }
   .card:hover { border-color: var(--accent-border); }
-  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 10px; cursor: pointer; position: relative; }
   .card.selected { border: 1.5px solid var(--accent); background: var(--accent-light); }
   .card-img { width: 100%; height: 64px; border-radius: 8px; background: #f0f0ee; display: flex; align-items: center; justify-content: center; margin-bottom: 8px; overflow: hidden; }
   .card-img img { width: 100%; height: 100%; object-fit: cover; }
   .card-name { font-size: 11px; font-weight: 500; color: var(--text); line-height: 1.35; margin-bottom: 2px; }
-  .card-name { font-size: 11px; font-weight: 500; margin-bottom: 4px; }
   .card-code { font-size: 10px; color: var(--text-muted); }
   .check-icon { position: absolute; top: 8px; right: 8px; width: 16px; height: 16px; border-radius: 50%; background: var(--accent); display: none; align-items: center; justify-content: center; }
   .card.selected .check-icon { display: flex; }
   .check-icon svg { width: 10px; height: 10px; stroke: white; fill: none; }
   .qty-row { display: none; margin-top: 8px; border-top: 1px solid var(--accent-border); padding-top: 8px; }
-  .qty-row { margin-top: 8px; border-top: 1px solid var(--accent-border); padding-top: 8px; display: none; }
   .card.selected .qty-row { display: block; }
   .qty-row input { width: 100%; height: 30px; border-radius: 6px; border: 1px solid var(--accent-border); background: white; color: var(--text); font-size: 13px; font-weight: 500; padding: 0 8px; text-align: center; outline: none; }
   .qty-row input:focus { border-color: var(--accent); }
 
-  /* SUMMARY */
   .summary { background: var(--accent-light); border: 1px solid var(--accent-border); border-radius: var(--radius); padding: 10px 16px; font-size: 13px; color: var(--accent); display: none; align-items: center; gap: 8px; margin-bottom: 16px; }
   .summary.show { display: flex; }
 
-  /* ACTIONS */
   .actions { display: flex; gap: 10px; justify-content: flex-end; padding-top: 16px; border-top: 1px solid var(--border); }
   .btn-clear { padding: 9px 20px; border-radius: var(--radius); border: 1px solid var(--border); background: var(--surface); color: var(--text); font-size: 13px; cursor: pointer; }
   .btn-submit { padding: 9px 24px; border-radius: var(--radius); border: none; background: var(--accent); color: white; font-size: 13px; font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 6px; }
   .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; }
 
-  /* LOADING */
   .loading { text-align: center; padding: 40px; color: var(--text-muted); font-size: 14px; }
 
-  /* SUCCESS */
   .success-screen { display: none; text-align: center; padding: 60px 20px; }
   .success-screen.show { display: block; }
   .success-icon { width: 60px; height: 60px; border-radius: 50%; background: var(--accent-light); display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; }
@@ -115,30 +87,7 @@
   .success-pr { font-size: 15px; color: var(--accent); font-weight: 500; margin-bottom: 6px; }
   .success-sub { font-size: 13px; color: var(--text-muted); margin-bottom: 24px; }
   .btn-new { padding: 10px 24px; border-radius: var(--radius); border: none; background: var(--accent); color: white; font-size: 13px; font-weight: 500; cursor: pointer; }
-  .qty-row input { width: 100%; height: 30px; border-radius: 6px; border: 1px solid var(--accent-border); text-align: center; }
-
-  .actions { border-top: 1px solid var(--border); padding-top: 16px; display: flex; gap: 10px; justify-content: flex-end; }
-  .btn-submit { padding: 10px 24px; border-radius: var(--radius); border: none; background: var(--accent); color: white; cursor: pointer; }
 </style>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HAC Procurement</title>
-    <style>
-        :root { --bg: #f5f5f3; --surface: #ffffff; --border: #e2e2e0; --text: #1a1a1a; --accent: #1a6b3c; --radius: 10px; }
-        body { font-family: sans-serif; background: var(--bg); margin: 0; padding: 20px; }
-
-        /* Auth Styles */
-        .auth-screen { display: flex; align-items: center; justify-content: center; min-height: 90vh; }
-        .auth-box { background: var(--surface); padding: 32px; border-radius: var(--radius); width: 100%; max-width: 400px; border: 1px solid var(--border); box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .auth-input { width: 100%; padding: 12px; margin-bottom: 16px; border: 1px solid var(--border); border-radius: 5px; box-sizing: border-box; }
-        .btn-auth { width: 100%; padding: 12px; background: var(--accent); color: white; border: none; border-radius: 5px; cursor: pointer; }
-
-        /* App Styles */
-        #app-wrapper { display: none; max-width: 900px; margin: 0 auto; }
-        .topbar { background: var(--surface); padding: 15px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; border-radius: var(--radius); margin-bottom: 20px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; margin-top: 20px; }
-        .card { background: white; padding: 15px; border: 1px solid var(--border); border-radius: 8px; cursor: pointer; }
-    </style>
 </head>
 <body>
 
@@ -149,9 +98,6 @@
     <input type="email" id="auth-email" class="auth-input" placeholder="name@company.com">
     <input type="password" id="auth-password" class="auth-input" placeholder="Enter Password">
     <button class="btn-auth" id="auth-btn" onclick="verifyUser()">Login</button>
-    <input type="email" id="auth-email" class="auth-input" placeholder="Email">
-    <input type="password" id="auth-password" class="auth-input" placeholder="Password">
-    <button class="btn-auth" onclick="verifyUser()">Login</button>
   </div>
 </div>
 
@@ -168,24 +114,16 @@
       <span class="pr-badge" id="pr-display">PR-2026-—</span>
       <div class="meta-item">Date: <strong id="date-display">—</strong></div>
       <div class="meta-item">User: <strong id="user-display">—</strong></div>
-    <div class="auth-box">
-        <h2>HAC Procurement</h2>
-        <input type="email" id="auth-email" class="auth-input" placeholder="Email">
-        <input type="password" id="auth-password" class="auth-input" placeholder="Password">
-        <button class="btn-auth" onclick="verifyUser()">Login</button>
     </div>
-      <div>HAC Procurement</div>
-      <div id="user-display"></div>
   </div>
 
-  <div class="container" id="main-container">
+  <div class="container">
     <div id="main-form">
       <div class="project-fields-row">
         <div class="project-wrap">
           <label>Project</label>
           <input type="text" id="project-input" placeholder="e.g. Juin Park Offices">
         </div>
-
         <div class="project-wrap">
           <label>Location</label>
           <select id="location-input">
@@ -224,7 +162,6 @@
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="2,8 6,12 14,4"/></svg>
         <span id="summary-text"></span>
       </div>
-</div>
 
       <div class="actions">
         <button class="btn-clear" onclick="clearAll()">Clear</button>
@@ -233,14 +170,6 @@
           Submit Request
         </button>
       </div>
-  <div class="container" id="main-form">
-    <div class="project-fields-row">
-      <div class="project-wrap"><label>Project</label><input type="text" id="project-input" placeholder="Project Name"></div>
-      <div class="project-wrap"><label>City</label><select id="location-input"><option value="Riyadh">Riyadh</option><option value="Jeddah">Jeddah</option></select></div>
-<div id="app-wrapper">
-    <div class="topbar">
-        <strong>HAC Procurement</strong>
-        <p>User: <span id="user-display"></span></p>
     </div>
 
     <div class="success-screen" id="success-screen">
@@ -249,113 +178,75 @@
       </div>
       <div class="success-title">Request Submitted!</div>
       <div class="success-pr" id="success-pr"></div>
-      <div class="success-sub">Order logic successfully appended to Master Sheet.</div>
+      <div class="success-sub">Order successfully appended to Master Sheet.</div>
       <button class="btn-new" onclick="newRequest()">New Request</button>
-    <div class="filter-tabs" id="filter-tabs"></div>
-    <div class="grid" id="materials-grid"></div>
-    <div class="actions">
-        <button onclick="clearAll()" style="background:none; border:none; color:red; cursor:pointer;">Clear All</button>
-        <button class="btn-submit" id="submit-btn" onclick="submitOrder()">Submit Request</button>
-    <div class="container">
-        <input type="text" id="project-input" placeholder="Project Name" style="padding:10px; width:100%; margin-bottom:10px;">
-        <div class="grid" id="materials-grid"></div>
-        <button onclick="submitOrder()" style="margin-top:20px; padding:10px 20px; background:var(--accent); color:white; border:none; cursor:pointer;">Submit Request</button>
     </div>
   </div>
 </div>
 
 <script>
-// الرابط النهائي المحدث والخاص بك
-const API_URL = 'https://script.google.com/macros/s/AKfycbyCNCmHawUWwIfwiSxEQiZEzUebzKh4hvhy0URoPxOlhfw2F4CjwCX9dB9FLXaNzR4e4Q/exec';
+const API_URL = 'https://script.google.com/macros/s/AKfycbyW7C9W2od3kZIECYTmja0iGCD6EmP1gFr3wMaU-K-o5aSlBDEZqCdEUdViBVYkoqBV4A/exec';
 
 const ALLOWED_USERS = [
   { email: 'abdalla.fawzy@hacksa.net', password: '123456789', name: 'Abdalla Fawzy' },
-  { email: 'm.shikhani@hacksa.net', password: '123456789', name: 'M. Shikhani' },
-  { email: 'e.shikhani@hacksa.net', password: '123456789', name: 'E. Shikhani' }
-  { email: 'm.shikhani@hacksa.net', password: '123456789', name: 'M. Shikhani' }
-    { email: 'abdalla.fawzy@hacksa.net', password: '123456789', name: 'Abdalla Fawzy' },
-    { email: 'm.shikhani@hacksa.net', password: '123456789', name: 'M. Shikhani' }
+  { email: 'm.shikhani@hacksa.net',    password: '123456789', name: 'M. Shikhani' },
+  { email: 'e.shikhani@hacksa.net',    password: '123456789', name: 'E. Shikhani' }
 ];
 
-let currentUserName = ''; 
+let currentUserName = '';
 let materials = [];
 let categories = [];
 let currentCat = 'ALL';
 let rowCounter = 1;
 
-function verifyUser() {
-  const emailInput = document.getElementById('auth-email').value.trim().toLowerCase();
-  const passwordInput = document.getElementById('auth-password').value.trim();
-
-  if(!emailInput) { alert('Please enter your email.'); return; }
-  if(!passwordInput) { alert('Please enter your password.'); return; }
-
-  const user = ALLOWED_USERS.find(u => u.email === emailInput && u.password === passwordInput);
-
-  if(user) {
-    currentUserName = user.name; 
 window.onload = () => {
   const savedUser = localStorage.getItem('hac_user');
   if (savedUser) {
+    currentUserName = savedUser;
+    document.getElementById('auth-screen').style.display = 'none';
+    document.getElementById('app-wrapper').style.display = 'block';
+    initApp();
+  }
+};
+
+function verifyUser() {
+  const email    = document.getElementById('auth-email').value.trim().toLowerCase();
+  const password = document.getElementById('auth-password').value.trim();
+  if (!email)    { alert('Please enter your email.');    return; }
+  if (!password) { alert('Please enter your password.'); return; }
+  const user = ALLOWED_USERS.find(u => u.email === email && u.password === password);
+  if (user) {
+    localStorage.setItem('hac_user', user.name);
+    currentUserName = user.name;
     document.getElementById('auth-screen').style.display = 'none';
     document.getElementById('app-wrapper').style.display = 'block';
     initApp();
   } else {
     alert('Access Denied: Invalid email or password.');
-    document.getElementById('user-display').textContent = savedUser;
-
-    // استعادة اسم المشروع والمدينة
-    document.getElementById('project-input').value = localStorage.getItem('hac_project') || '';
-    document.getElementById('location-input').value = localStorage.getItem('hac_location') || 'Riyadh';
-
-    loadMaterials();
   }
-    const email = document.getElementById('auth-email').value.trim().toLowerCase();
-    const pass = document.getElementById('auth-password').value.trim();
-    const user = ALLOWED_USERS.find(u => u.email === email && u.password === pass);
-
-    if(user) {
-        localStorage.setItem('hac_user', user.name);
-        location.reload();
-    } else {
-        alert('Invalid credentials');
-    }
 }
 
 function initApp() {
   const now = new Date();
   document.getElementById('date-display').textContent = now.toLocaleDateString('en-GB');
-  document.getElementById('user-display').textContent = currentUserName; 
+  document.getElementById('user-display').textContent = currentUserName;
+  document.getElementById('project-input').value  = localStorage.getItem('hac_project')  || '';
+  document.getElementById('location-input').value = localStorage.getItem('hac_location') || '';
   loadMaterials();
 }
-window.onload = () => {
-    const savedUser = localStorage.getItem('hac_user');
-    if(savedUser) {
-        document.getElementById('auth-screen').style.display = 'none';
-        document.getElementById('app-wrapper').style.display = 'block';
-        document.getElementById('user-display').textContent = savedUser;
-    }
-};
 
 function updatePRDisplay() {
   const year = new Date().getFullYear();
-  const num = String(rowCounter).padStart(3, '0');
+  const num  = String(rowCounter).padStart(3, '0');
   document.getElementById('pr-display').textContent = `PR-${year}-${num}`;
-function verifyUser() {
-  const u = ALLOWED_USERS.find(x => x.email === document.getElementById('auth-email').value.trim().toLowerCase() && x.password === document.getElementById('auth-password').value);
-  if(u) {
-    localStorage.setItem('hac_user', u.name);
-    location.reload();
-  } else alert('Access Denied');
 }
 
 function loadMaterials() {
   fetch(`${API_URL}?action=getMaterials`)
-  fetch(API_URL + '?action=getMaterials')
     .then(r => r.json())
     .then(res => {
       if (res.success) {
-        materials = res.data.map(item => ({ ...item, selected: false, quantity: '' }));
+        materials  = res.data.map(item => ({ ...item, selected: false, quantity: '' }));
         categories = [...new Set(materials.map(m => m.category).filter(Boolean))];
         buildCategoryTabs();
         renderGrid('ALL');
@@ -365,14 +256,7 @@ function loadMaterials() {
       }
     })
     .catch(() => {
-      document.getElementById('materials-grid').innerHTML = '<div class="loading">Could not load materials. Check Apps Script URL or Web App setup.</div>';
-      materials = res.data.map(m => ({
-        ...m,
-        quantity: localStorage.getItem(`qty_${m.code}`) || '',
-        selected: localStorage.getItem(`qty_${m.code}`) ? true : false
-      }));
-      renderTabs();
-      renderGrid('ALL');
+      document.getElementById('materials-grid').innerHTML = '<div class="loading">Could not load materials.</div>';
     });
 }
 
@@ -381,187 +265,132 @@ function buildCategoryTabs() {
   tabs.innerHTML = '<div class="filter-tab active" data-cat="ALL" onclick="filterCat(this)">All</div>';
   categories.forEach(cat => {
     const tab = document.createElement('div');
-    tab.className = 'filter-tab';
+    tab.className   = 'filter-tab';
     tab.dataset.cat = cat;
     tab.textContent = cat;
-    tab.onclick = () => filterCat(tab);
+    tab.onclick     = () => filterCat(tab);
     tabs.appendChild(tab);
   });
-function renderTabs() {
-  const cats = ['ALL', ...new Set(materials.map(m => m.category))];
-  document.getElementById('filter-tabs').innerHTML = cats.map(c => 
-    `<div class="filter-tab ${c==='ALL'?'active':''}" onclick="filterCat(this, '${c}')">${c}</div>`).join('');
 }
 
 function filterCat(pill) {
-function filterCat(el, cat) {
   document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
   pill.classList.add('active');
   currentCat = pill.dataset.cat;
   renderGrid(currentCat);
-  el.classList.add('active');
-  currentCat = cat;
-  renderGrid(cat);
 }
 
 function renderGrid(cat) {
-  const grid = document.getElementById('materials-grid');
+  const grid     = document.getElementById('materials-grid');
   const filtered = cat === 'ALL' ? materials : materials.filter(m => m.category === cat);
-
-  if(filtered.length === 0) {
-    grid.innerHTML = '<div class="loading">No materials available in this category.</div>';
+  if (filtered.length === 0) {
+    grid.innerHTML = '<div class="loading">No materials in this category.</div>';
     return;
   }
-
-  grid.innerHTML = filtered.map(m => {
-    const isSelected = m.selected ? 'selected' : '';
-    return `
-      <div class="card ${isSelected}" data-code="${m.code}" onclick="toggleCard('${m.code}', event)">
-        <div class="check-icon">
-          <svg viewBox="0 0 10 10"><polyline points="1,5 4,8 9,2" stroke-width="2"/></svg>
-        </div>
-        <div class="card-img">
-          ${m.image ? `<img src="${m.image}" alt="${m.description}" onerror="this.parentElement.innerHTML='${pipeSVG(m.type)}'">` : pipeSVG(m.type)}
-        </div>
-        <div class="card-name">${m.description}</div>
-        <div class="card-code">${m.code}</div>
-        <div class="qty-row">
-          <input type="number" min="1" placeholder="Qty" value="${m.quantity || ''}" 
-                 oninput="updateQty('${m.code}', this.value)" onclick="event.stopPropagation()">
-        </div>
-  document.getElementById('materials-grid').innerHTML = filtered.map(m => `
+  grid.innerHTML = filtered.map(m => `
     <div class="card ${m.selected ? 'selected' : ''}" data-code="${m.code}" onclick="toggleCard('${m.code}', event)">
+      <div class="check-icon"><svg viewBox="0 0 10 10"><polyline points="1,5 4,8 9,2" stroke-width="2"/></svg></div>
+      <div class="card-img">
+        ${m.image ? `<img src="${m.image}" alt="${m.description}" onerror="this.parentElement.innerHTML=pipeSVG('${m.type}')">` : pipeSVG(m.type)}
+      </div>
       <div class="card-name">${m.description}</div>
       <div class="card-code">${m.code}</div>
       <div class="qty-row">
-        <input type="number" placeholder="Qty" value="${m.quantity}" oninput="saveQty('${m.code}', this.value)" onclick="event.stopPropagation()">
+        <input type="number" min="1" placeholder="Qty" value="${m.quantity || ''}"
+               oninput="updateQty('${m.code}', this.value)" onclick="event.stopPropagation()">
       </div>
-    `;
-  }).join('');
+    </div>
+  `).join('');
 }
 
 function pipeSVG(type) {
   const color = type && type.includes('BLACK') ? '#333' : '#1a6b3c';
   const light = type && type.includes('BLACK') ? '#555' : '#2d9e6b';
   return `<svg viewBox="0 0 100 50" width="90" height="45"><rect x="4" y="16" width="92" height="18" rx="9" fill="${color}"/><ellipse cx="50" cy="16" rx="46" ry="9" fill="${light}"/></svg>`;
-    </div>
-  `).join('');
 }
 
 function toggleCard(code, event) {
   if (event.target.tagName === 'INPUT') return;
   const item = materials.find(m => m.code === code);
-  if (item) {
-    item.selected = !item.selected;
-    if (!item.selected) item.quantity = '';
-  }
-  const m = materials.find(x => x.code === code);
-  m.selected = !m.selected;
-  if (!m.selected) { m.quantity = ''; localStorage.removeItem(`qty_${code}`); }
+  if (!item) return;
+  item.selected = !item.selected;
+  if (!item.selected) item.quantity = '';
   renderGrid(currentCat);
-  if (item && item.selected) {
+  if (item.selected) {
     setTimeout(() => {
       const card = document.querySelector(`.card[data-code="${code}"]`);
       if (card) card.querySelector('input').focus();
-    }, 5);
+    }, 50);
   }
   updateSummary();
 }
 
 function updateQty(code, val) {
   const item = materials.find(m => m.code === code);
-  if (item) { item.quantity = val; }
+  if (item) {
+    item.quantity = val;
+    localStorage.setItem('hac_project',  document.getElementById('project-input').value);
+    localStorage.setItem('hac_location', document.getElementById('location-input').value);
+  }
 }
 
 function updateSummary() {
-  const selectedCount = materials.filter(m => m.selected).length;
+  const count   = materials.filter(m => m.selected).length;
   const summary = document.getElementById('summary');
-  if (selectedCount > 0) {
+  if (count > 0) {
     summary.classList.add('show');
-    document.getElementById('summary-text').textContent = `${selectedCount} material${selectedCount > 1 ? 's' : ''} selected`;
+    document.getElementById('summary-text').textContent = `${count} material${count > 1 ? 's' : ''} selected`;
   } else {
     summary.classList.remove('show');
   }
-function saveQty(code, val) {
-  localStorage.setItem(`qty_${code}`, val);
-  const m = materials.find(x => x.code === code);
-  m.quantity = val;
-  // حفظ اسم المشروع والمدينة تلقائياً
-  localStorage.setItem('hac_project', document.getElementById('project-input').value);
-  localStorage.setItem('hac_location', document.getElementById('location-input').value);
 }
 
 function clearAll() {
   materials.forEach(m => { m.selected = false; m.quantity = ''; });
-  document.getElementById('project-input').value = '';
+  document.getElementById('project-input').value  = '';
   document.getElementById('location-input').value = '';
   renderGrid(currentCat);
   updateSummary();
-  if(confirm('Are you sure?')) {
-    localStorage.clear();
-    location.reload();
-  }
 }
 
 function submitOrder() {
-  const project = document.getElementById('project-input').value.trim();
+  const project  = document.getElementById('project-input').value.trim();
   const location = document.getElementById('location-input').value;
-  const selected = materials.filter(m => m.selected && m.quantity > 0);
-  if(selected.length === 0) return alert('No items selected!');
-
-  if (!project) { alert('Please enter a project name.'); return; }
+  if (!project)  { alert('Please enter a project name.');           return; }
   if (!location) { alert('Please select a project location city.'); return; }
-
   const selectedItems = materials.filter(m => m.selected);
   if (selectedItems.length === 0) { alert('Please select at least one material.'); return; }
-
   const orders = [];
-  let valid = true;
-
-  selectedItems.forEach(item => {
-    if (!item.quantity || item.quantity <= 0) { valid = false; return; }
-    orders.push({
-      code: item.code,
-      description: item.description,
-      qty: item.quantity
-    });
-  });
-
-  if (!valid) { alert('Please enter a valid quantity for all selected materials.'); return; }
-  // حفظ المشروع والمدينة قبل الإرسال
-  localStorage.setItem('hac_project', document.getElementById('project-input').value);
-  localStorage.setItem('hac_location', document.getElementById('location-input').value);
-
+  for (const item of selectedItems) {
+    if (!item.quantity || item.quantity <= 0) {
+      alert('Please enter a valid quantity for all selected materials.');
+      return;
+    }
+    orders.push({ code: item.code, description: item.description, qty: item.quantity });
+  }
   const btn = document.getElementById('submit-btn');
-  btn.disabled = true;
+  btn.disabled    = true;
   btn.textContent = 'Submitting...';
-
   const params = new URLSearchParams({
-    action: 'submitOrder',
-    project: project,
-    location: location,
-    requester: currentUserName, 
-    orders: JSON.stringify(orders)
-    project: document.getElementById('project-input').value,
-    location: document.getElementById('location-input').value,
-    requester: localStorage.getItem('hac_user'),
-    orders: JSON.stringify(selected.map(m => ({code: m.code, description: m.description, qty: m.quantity})))
+    action:    'submitOrder',
+    project:   project,
+    location:  location,
+    requester: currentUserName,
+    orders:    JSON.stringify(orders)
   });
-
   fetch(`${API_URL}?${params}`)
-  fetch(API_URL + '?' + params)
     .then(r => r.json())
     .then(res => {
       if (res.success) {
         document.getElementById('main-form').style.display = 'none';
         document.getElementById('success-screen').classList.add('show');
-        document.getElementById('success-pr').textContent = res.prNo || `PR-2026-${String(rowCounter).padStart(3, '0')}`;
+        document.getElementById('success-pr').textContent = res.prNo || `PR-${new Date().getFullYear()}-${String(rowCounter).padStart(3,'0')}`;
         rowCounter++;
       } else {
         alert('Server error: ' + (res.message || 'Submission failed.'));
       }
     })
-    .catch(() => alert('Error submitting. Check connection.'))
+    .catch(() => alert('Error submitting. Check your connection.'))
     .finally(() => {
       btn.disabled = false;
       btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><line x1="2" y1="7" x2="12" y2="7"/><polyline points="8,3 12,7 8,11"/></svg> Submit Request';
@@ -573,11 +402,7 @@ function newRequest() {
   document.getElementById('success-screen').classList.remove('show');
   clearAll();
   updatePRDisplay();
-      alert('Order submitted successfully!');
-      clearAll();
-    }).catch(() => { alert('Error!'); btn.disabled = false; });
 }
-function submitOrder() { alert('Submitted!'); }
 </script>
 </body>
 </html>
