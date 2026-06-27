@@ -204,14 +204,6 @@
         <div class="loading">Loading materials...</div>
       </div>
 
-      <!-- Brand Section -->
-      <div class="brand-section" id="brand-section">
-        <div class="brand-section-title">
-          Brand per Category
-          <span>Required</span>
-        </div>
-        <div class="brand-rows" id="brand-rows"></div>
-      </div>
 
       <!-- Summary -->
       <div class="summary" id="summary">
@@ -485,7 +477,6 @@ function getActiveSubCats() {
   return [...new Set(selected.map(m => m.category).filter(Boolean))];
 }
 
-function updateBrandSection() {
   const activeSubs = getActiveSubCats();
   const section    = document.getElementById('brand-section');
   const rows       = document.getElementById('brand-rows');
@@ -506,12 +497,6 @@ function updateBrandSection() {
         ${sub}
         <small>Enter preferred brand</small>
       </div>
-      <input type="text"
-             class="brand-input"
-             id="brand-input-${idx}"
-             placeholder="e.g. Wavin, Georg Fischer..."
-             value="${brandMap[sub] || ''}">
-    </div>
   `).join('');
 
   // Attach listeners after rendering
@@ -559,16 +544,6 @@ function submitOrder() {
   }
 
   const activeSubs = getActiveSubCats();
-  for (let i = 0; i < activeSubs.length; i++) {
-    const sub = activeSubs[i];
-    const val = (brandMap[sub] || '').trim();
-    if (!val) {
-      const el = document.getElementById(`brand-input-${i}`);
-      if (el) { el.classList.add('error'); el.focus(); }
-      alert(`Please enter a brand for: ${sub}`);
-      return;
-    }
-  }
 
   const orders = selectedItems.map(item => ({
     code:        item.code,
