@@ -489,14 +489,18 @@ function updateBrandSection() {
   const activeSubs = getActiveSubCats();
   const section    = document.getElementById('brand-section');
   const rows       = document.getElementById('brand-rows');
+
   if (activeSubs.length === 0) {
     section.classList.remove('show');
     brandMap = {};
     return;
   }
+
   section.classList.add('show');
   Object.keys(brandMap).forEach(k => { if (!activeSubs.includes(k)) delete brandMap[k]; });
-  rows.innerHTML = activeSubs.map(sub => `
+
+  // Index-based IDs to avoid btoa issues with Arabic text
+  rows.innerHTML = activeSubs.map((sub, idx) => `
     <div class="brand-row">
       <div class="brand-row-label">
         ${sub}
@@ -504,12 +508,17 @@ function updateBrandSection() {
       </div>
       <input type="text"
              class="brand-input"
-             id="brand-${btoa(sub).replace(/=/g,'')}"
+             id="brand-input-${idx}"
              placeholder="e.g. Wavin, Georg Fischer..."
-             value="${brandMap[sub] || ''}"
-             oninput="updateBrand('${sub}', this.value)">
+             value="${brandMap[sub] || ''}">
     </div>
   `).join('');
+
+  // Attach listeners after rendering
+  activeSubs.forEach((sub, idx) => {
+    const el = document.getElementById(`brand-input-${idx}`);
+    if (el) el.addEventListener('input', () => { brandMap[sub] = el.value; });
+  });
 }
 
 function updateBrand(sub, val) {
@@ -538,34 +547,40 @@ function submitOrder() {
   const location = document.getElementById('location-input').value;
   if (!project)  { alert('Please enter a project name.');           return; }
   if (!location) { alert('Please select a project location city.'); return; }
+
   const selectedItems = materials.filter(m => m.selected);
   if (selectedItems.length === 0) { alert('Please select at least one material.'); return; }
+
   for (const item of selectedItems) {
     if (!item.quantity || item.quantity <= 0) {
       alert(`Please enter a valid quantity for: ${item.description}`);
       return;
     }
   }
+
   const activeSubs = getActiveSubCats();
-  for (const sub of activeSubs) {
+  for (let i = 0; i < activeSubs.length; i++) {
+    const sub = activeSubs[i];
     const val = (brandMap[sub] || '').trim();
     if (!val) {
-      const key = btoa(sub).replace(/=/g,'');
-      const el  = document.getElementById(`brand-${key}`);
+      const el = document.getElementById(`brand-input-${i}`);
       if (el) { el.classList.add('error'); el.focus(); }
       alert(`Please enter a brand for: ${sub}`);
       return;
     }
   }
+
   const orders = selectedItems.map(item => ({
     code:        item.code,
     description: item.description,
     qty:         item.quantity,
     brand:       brandMap[item.category] || ''
   }));
+
   const btn = document.getElementById('submit-btn');
   btn.disabled    = true;
   btn.textContent = 'Submitting...';
+
   const params = new URLSearchParams({
     action:    'submitOrder',
     project:   project,
@@ -573,6 +588,7 @@ function submitOrder() {
     requester: currentUserName,
     orders:    JSON.stringify(orders)
   });
+
   fetch(`${API_URL}?${params}`)
     .then(r => r.json())
     .then(res => {
