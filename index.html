@@ -19,6 +19,8 @@
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+  /* AUTH */
   .auth-screen { display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; }
   .auth-box { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px; width: 100%; max-width: 400px; text-align: center; box-shadow: var(--shadow); }
   .auth-box h2 { font-size: 20px; color: var(--accent); margin-bottom: 12px; }
@@ -26,7 +28,8 @@
   .auth-input { width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: var(--radius); font-size: 14px; margin-bottom: 16px; outline: none; }
   .auth-input:focus { border-color: var(--accent); }
   .btn-auth { width: 100%; padding: 12px; background: var(--accent); color: white; border: none; border-radius: var(--radius); font-size: 14px; font-weight: 500; cursor: pointer; }
-  .btn-auth:disabled { opacity: 0.6; cursor: not-allowed; }
+
+  /* TOPBAR */
   .topbar { background: var(--surface); border-bottom: 1px solid var(--border); padding: 12px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
   .topbar-logo { display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 600; color: var(--accent); }
   .topbar-logo svg { width: 28px; height: 28px; }
@@ -34,18 +37,36 @@
   .meta-item { font-size: 12px; color: var(--text-muted); }
   .meta-item strong { color: var(--text); font-weight: 500; }
   .pr-badge { background: var(--accent-light); border: 1px solid var(--accent-border); color: var(--accent); font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 20px; }
-  .container { max-width: 900px; margin: 0 auto; padding: 24px 16px; }
-  .project-fields-row { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; margin-bottom: 20px; }
+
+  /* CONTAINER */
+  .container { max-width: 960px; margin: 0 auto; padding: 24px 16px; }
+
+  /* PROJECT ROW */
+  .project-fields-row { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; margin-bottom: 16px; }
   @media(max-width: 600px) { .project-fields-row { grid-template-columns: 1fr; } }
   .project-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px 16px; display: flex; align-items: center; gap: 12px; }
   .project-wrap label { font-size: 13px; font-weight: 500; color: var(--text-muted); white-space: nowrap; }
   .project-wrap input, .project-wrap select { flex: 1; border: none; outline: none; font-size: 15px; font-weight: 500; color: var(--text); background: transparent; width: 100%; }
   .project-wrap input::placeholder { color: #ccc; font-weight: 400; }
-  .filter-section { margin-bottom: 14px; }
-  .filter-label { font-size: 11px; font-weight: 500; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
-  .filter-tabs { display: flex; gap: 6px; flex-wrap: wrap; }
-  .filter-tab { padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 500; cursor: pointer; border: 1px solid var(--border); background: var(--surface); color: var(--text-muted); transition: all 0.15s; }
-  .filter-tab.active { background: var(--accent-light); border-color: var(--accent-border); color: var(--accent); }
+
+  /* SEARCH BAR */
+  .search-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 10px 16px; display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+  .search-wrap svg { flex-shrink: 0; color: var(--text-muted); }
+  .search-wrap input { flex: 1; border: none; outline: none; font-size: 14px; color: var(--text); background: transparent; }
+  .search-wrap input::placeholder { color: #bbb; }
+  .search-clear { background: none; border: none; cursor: pointer; color: var(--text-muted); font-size: 16px; padding: 0 4px; display: none; }
+  .search-clear.show { display: block; }
+
+  /* CATEGORY TREE */
+  .cat-section { margin-bottom: 16px; }
+  .main-cat-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
+  .main-cat-tab { padding: 7px 16px; border-radius: 20px; font-size: 13px; font-weight: 600; cursor: pointer; border: 1px solid var(--border); background: var(--surface); color: var(--text-muted); transition: all 0.15s; }
+  .main-cat-tab.active { background: var(--accent); border-color: var(--accent); color: white; }
+  .sub-cat-row { display: flex; gap: 6px; flex-wrap: wrap; padding-left: 4px; }
+  .sub-cat-tab { padding: 5px 13px; border-radius: 20px; font-size: 12px; font-weight: 500; cursor: pointer; border: 1px solid var(--border); background: var(--surface); color: var(--text-muted); transition: all 0.15s; }
+  .sub-cat-tab.active { background: var(--accent-light); border-color: var(--accent-border); color: var(--accent); }
+
+  /* GRID */
   .grid-label { font-size: 11px; font-weight: 500; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; }
   .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; margin-bottom: 20px; }
   .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 10px; cursor: pointer; transition: border-color 0.15s; position: relative; }
@@ -62,13 +83,35 @@
   .card.selected .qty-row { display: block; }
   .qty-row input { width: 100%; height: 30px; border-radius: 6px; border: 1px solid var(--accent-border); background: white; color: var(--text); font-size: 13px; font-weight: 500; padding: 0 8px; text-align: center; outline: none; }
   .qty-row input:focus { border-color: var(--accent); }
+
+  /* BRAND SECTION */
+  .brand-section { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; margin-bottom: 16px; display: none; }
+  .brand-section.show { display: block; }
+  .brand-section-title { font-size: 12px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; display: flex; align-items: center; gap: 6px; }
+  .brand-section-title span { background: #fff3cd; border: 1px solid #ffc107; color: #856404; font-size: 10px; padding: 2px 7px; border-radius: 10px; font-weight: 500; text-transform: none; }
+  .brand-rows { display: flex; flex-direction: column; gap: 10px; }
+  .brand-row { display: flex; align-items: center; gap: 12px; }
+  .brand-row-label { font-size: 13px; font-weight: 500; color: var(--text); min-width: 180px; }
+  .brand-row-label small { display: block; font-size: 10px; color: var(--text-muted); font-weight: 400; }
+  .brand-input { flex: 1; padding: 9px 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 13px; outline: none; color: var(--text); }
+  .brand-input:focus { border-color: var(--accent); }
+  .brand-input.error { border-color: #e53935; background: #fff5f5; }
+
+  /* SUMMARY */
   .summary { background: var(--accent-light); border: 1px solid var(--accent-border); border-radius: var(--radius); padding: 10px 16px; font-size: 13px; color: var(--accent); display: none; align-items: center; gap: 8px; margin-bottom: 16px; }
   .summary.show { display: flex; }
+
+  /* ACTIONS */
   .actions { display: flex; gap: 10px; justify-content: flex-end; padding-top: 16px; border-top: 1px solid var(--border); }
   .btn-clear { padding: 9px 20px; border-radius: var(--radius); border: 1px solid var(--border); background: var(--surface); color: var(--text); font-size: 13px; cursor: pointer; }
   .btn-submit { padding: 9px 24px; border-radius: var(--radius); border: none; background: var(--accent); color: white; font-size: 13px; font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 6px; }
   .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  /* EMPTY STATE */
   .loading { text-align: center; padding: 40px; color: var(--text-muted); font-size: 14px; }
+  .empty-search { text-align: center; padding: 32px; color: var(--text-muted); font-size: 13px; }
+
+  /* SUCCESS */
   .success-screen { display: none; text-align: center; padding: 60px 20px; }
   .success-screen.show { display: block; }
   .success-icon { width: 60px; height: 60px; border-radius: 50%; background: var(--accent-light); display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; }
@@ -81,6 +124,7 @@
 </head>
 <body>
 
+<!-- AUTH -->
 <div class="auth-screen" id="auth-screen">
   <div class="auth-box">
     <h2>HAC Procurement</h2>
@@ -91,7 +135,8 @@
   </div>
 </div>
 
-<div id="app-wrapper" style="display: none;">
+<!-- APP -->
+<div id="app-wrapper" style="display:none;">
   <div class="topbar">
     <div class="topbar-logo">
       <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -109,6 +154,8 @@
 
   <div class="container">
     <div id="main-form">
+
+      <!-- Project + Location -->
       <div class="project-fields-row">
         <div class="project-wrap">
           <label>Project</label>
@@ -136,23 +183,43 @@
         </div>
       </div>
 
-      <div class="filter-section">
-        <div class="filter-label">Category</div>
-        <div class="filter-tabs" id="filter-tabs">
-          <div class="filter-tab active" data-cat="ALL" onclick="filterCat(this)">All</div>
-        </div>
+      <!-- Search Bar -->
+      <div class="search-wrap">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="6.5" cy="6.5" r="4.5"/><line x1="10.5" y1="10.5" x2="14" y2="14"/>
+        </svg>
+        <input type="text" id="search-input" placeholder="Search by name, code, or category..." oninput="onSearch(this.value)">
+        <button class="search-clear" id="search-clear" onclick="clearSearch()">✕</button>
       </div>
 
+      <!-- Category Tree -->
+      <div class="cat-section" id="cat-section">
+        <div class="main-cat-tabs" id="main-cat-tabs"></div>
+        <div class="sub-cat-row" id="sub-cat-tabs"></div>
+      </div>
+
+      <!-- Grid -->
       <div class="grid-label">Select materials and enter quantity</div>
       <div class="grid" id="materials-grid">
         <div class="loading">Loading materials...</div>
       </div>
 
+      <!-- Brand Section -->
+      <div class="brand-section" id="brand-section">
+        <div class="brand-section-title">
+          Brand per Category
+          <span>Required</span>
+        </div>
+        <div class="brand-rows" id="brand-rows"></div>
+      </div>
+
+      <!-- Summary -->
       <div class="summary" id="summary">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="2,8 6,12 14,4"/></svg>
         <span id="summary-text"></span>
       </div>
 
+      <!-- Actions -->
       <div class="actions">
         <button class="btn-clear" onclick="clearAll()">Clear</button>
         <button class="btn-submit" id="submit-btn" onclick="submitOrder()">
@@ -162,6 +229,7 @@
       </div>
     </div>
 
+    <!-- Success -->
     <div class="success-screen" id="success-screen">
       <div class="success-icon">
         <svg viewBox="0 0 28 28"><polyline points="4,14 10,20 24,8"/></svg>
@@ -185,9 +253,12 @@ const ALLOWED_USERS = [
 
 let currentUserName = '';
 let materials = [];
-let categories = [];
-let currentCat = 'ALL';
-let rowCounter = 1;
+let mainCategories = [];
+let subCategories = {};
+let currentMain = 'ALL';
+let currentSub  = 'ALL';
+let searchQuery = '';
+let rowCounter  = 1;
 
 window.onload = () => {
   const savedUser = localStorage.getItem('hac_user');
@@ -236,10 +307,9 @@ function loadMaterials() {
     .then(r => r.json())
     .then(res => {
       if (res.success) {
-        materials  = res.data.map(item => ({ ...item, selected: false, quantity: '' }));
-        categories = [...new Set(materials.map(m => m.category).filter(Boolean))];
-        buildCategoryTabs();
-        renderGrid('ALL');
+        materials = res.data.map(item => ({ ...item, selected: false, quantity: '' }));
+        buildCategoryTree();
+        renderGrid();
         updatePRDisplay();
       } else {
         document.getElementById('materials-grid').innerHTML = `<div class="loading">Error: ${res.message}</div>`;
@@ -250,38 +320,110 @@ function loadMaterials() {
     });
 }
 
-function buildCategoryTabs() {
-  const tabs = document.getElementById('filter-tabs');
-  tabs.innerHTML = '<div class="filter-tab active" data-cat="ALL" onclick="filterCat(this)">All</div>';
-  categories.forEach(cat => {
-    const tab = document.createElement('div');
-    tab.className   = 'filter-tab';
-    tab.dataset.cat = cat;
-    tab.textContent = cat;
-    tab.onclick     = () => filterCat(tab);
-    tabs.appendChild(tab);
+function buildCategoryTree() {
+  mainCategories = [...new Set(materials.map(m => m.mainCategory).filter(Boolean))];
+  subCategories  = {};
+  mainCategories.forEach(mc => {
+    subCategories[mc] = [...new Set(
+      materials.filter(m => m.mainCategory === mc).map(m => m.category).filter(Boolean)
+    )];
+  });
+  renderMainTabs();
+}
+
+function renderMainTabs() {
+  const tabs = document.getElementById('main-cat-tabs');
+  tabs.innerHTML = `<div class="main-cat-tab active" data-cat="ALL" onclick="selectMain(this)">All</div>`;
+  mainCategories.forEach(mc => {
+    const t = document.createElement('div');
+    t.className   = 'main-cat-tab';
+    t.dataset.cat = mc;
+    t.textContent = mc;
+    t.onclick     = () => selectMain(t);
+    tabs.appendChild(t);
+  });
+  renderSubTabs();
+}
+
+function selectMain(el) {
+  document.querySelectorAll('.main-cat-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  currentMain = el.dataset.cat;
+  currentSub  = 'ALL';
+  renderSubTabs();
+  renderGrid();
+}
+
+function renderSubTabs() {
+  const row = document.getElementById('sub-cat-tabs');
+  if (currentMain === 'ALL') { row.innerHTML = ''; return; }
+  const subs = subCategories[currentMain] || [];
+  row.innerHTML = `<div class="sub-cat-tab active" data-cat="ALL" onclick="selectSub(this)">All</div>`;
+  subs.forEach(sc => {
+    const t = document.createElement('div');
+    t.className   = 'sub-cat-tab';
+    t.dataset.cat = sc;
+    t.textContent = sc;
+    t.onclick     = () => selectSub(t);
+    row.appendChild(t);
   });
 }
 
-function filterCat(pill) {
-  document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
-  pill.classList.add('active');
-  currentCat = pill.dataset.cat;
-  renderGrid(currentCat);
+function selectSub(el) {
+  document.querySelectorAll('.sub-cat-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  currentSub = el.dataset.cat;
+  renderGrid();
 }
 
-function renderGrid(cat) {
+function onSearch(val) {
+  searchQuery = val.toLowerCase().trim();
+  document.getElementById('search-clear').classList.toggle('show', searchQuery.length > 0);
+  if (searchQuery) {
+    currentMain = 'ALL';
+    currentSub  = 'ALL';
+    document.querySelectorAll('.main-cat-tab').forEach(t => t.classList.toggle('active', t.dataset.cat === 'ALL'));
+    document.getElementById('sub-cat-tabs').innerHTML = '';
+  }
+  renderGrid();
+}
+
+function clearSearch() {
+  document.getElementById('search-input').value = '';
+  searchQuery = '';
+  document.getElementById('search-clear').classList.remove('show');
+  renderGrid();
+}
+
+function getFiltered() {
+  let list = materials;
+  if (searchQuery) {
+    return list.filter(m =>
+      (m.description || '').toLowerCase().includes(searchQuery) ||
+      (m.code        || '').toLowerCase().includes(searchQuery) ||
+      (m.category    || '').toLowerCase().includes(searchQuery) ||
+      (m.mainCategory|| '').toLowerCase().includes(searchQuery)
+    );
+  }
+  if (currentMain !== 'ALL') list = list.filter(m => m.mainCategory === currentMain);
+  if (currentSub  !== 'ALL') list = list.filter(m => m.category === currentSub);
+  return list;
+}
+
+function renderGrid() {
   const grid     = document.getElementById('materials-grid');
-  const filtered = cat === 'ALL' ? materials : materials.filter(m => m.category === cat);
+  const filtered = getFiltered();
   if (filtered.length === 0) {
-    grid.innerHTML = '<div class="loading">No materials in this category.</div>';
+    grid.innerHTML = `<div class="empty-search">No materials found${searchQuery ? ` for "${searchQuery}"` : ''}.</div>`;
     return;
   }
   grid.innerHTML = filtered.map(m => `
     <div class="card ${m.selected ? 'selected' : ''}" data-code="${m.code}" onclick="toggleCard('${m.code}', event)">
       <div class="check-icon"><svg viewBox="0 0 10 10"><polyline points="1,5 4,8 9,2" stroke-width="2"/></svg></div>
       <div class="card-img">
-        ${m.image ? `<img src="${m.image}" alt="${m.description}" onerror="this.parentElement.innerHTML=pipeSVG('${m.type}')">` : pipeSVG(m.type)}
+        ${m.image
+          ? `<img src="${m.image}" alt="${m.description}" onerror="this.parentElement.innerHTML=pipeSVG('${m.type}')">`
+          : pipeSVG(m.type)}
       </div>
       <div class="card-name">${m.description}</div>
       <div class="card-code">${m.code}</div>
@@ -305,14 +447,15 @@ function toggleCard(code, event) {
   if (!item) return;
   item.selected = !item.selected;
   if (!item.selected) item.quantity = '';
-  renderGrid(currentCat);
+  renderGrid();
   if (item.selected) {
     setTimeout(() => {
       const card = document.querySelector(`.card[data-code="${code}"]`);
-      if (card) card.querySelector('input').focus();
+      if (card) card.querySelector('input') && card.querySelector('input').focus();
     }, 50);
   }
   updateSummary();
+  updateBrandSection();
 }
 
 function updateQty(code, val) {
@@ -335,12 +478,59 @@ function updateSummary() {
   }
 }
 
+let brandMap = {};
+
+function getActiveSubCats() {
+  const selected = materials.filter(m => m.selected);
+  return [...new Set(selected.map(m => m.category).filter(Boolean))];
+}
+
+function updateBrandSection() {
+  const activeSubs = getActiveSubCats();
+  const section    = document.getElementById('brand-section');
+  const rows       = document.getElementById('brand-rows');
+  if (activeSubs.length === 0) {
+    section.classList.remove('show');
+    brandMap = {};
+    return;
+  }
+  section.classList.add('show');
+  Object.keys(brandMap).forEach(k => { if (!activeSubs.includes(k)) delete brandMap[k]; });
+  rows.innerHTML = activeSubs.map(sub => `
+    <div class="brand-row">
+      <div class="brand-row-label">
+        ${sub}
+        <small>Enter preferred brand</small>
+      </div>
+      <input type="text"
+             class="brand-input"
+             id="brand-${btoa(sub).replace(/=/g,'')}"
+             placeholder="e.g. Wavin, Georg Fischer..."
+             value="${brandMap[sub] || ''}"
+             oninput="updateBrand('${sub}', this.value)">
+    </div>
+  `).join('');
+}
+
+function updateBrand(sub, val) {
+  brandMap[sub] = val;
+}
+
 function clearAll() {
   materials.forEach(m => { m.selected = false; m.quantity = ''; });
   document.getElementById('project-input').value  = '';
   document.getElementById('location-input').value = '';
-  renderGrid(currentCat);
+  document.getElementById('search-input').value   = '';
+  searchQuery = '';
+  document.getElementById('search-clear').classList.remove('show');
+  brandMap    = {};
+  currentMain = 'ALL';
+  currentSub  = 'ALL';
+  document.querySelectorAll('.main-cat-tab').forEach(t => t.classList.toggle('active', t.dataset.cat === 'ALL'));
+  document.getElementById('sub-cat-tabs').innerHTML = '';
+  renderGrid();
   updateSummary();
+  updateBrandSection();
 }
 
 function submitOrder() {
@@ -350,14 +540,29 @@ function submitOrder() {
   if (!location) { alert('Please select a project location city.'); return; }
   const selectedItems = materials.filter(m => m.selected);
   if (selectedItems.length === 0) { alert('Please select at least one material.'); return; }
-  const orders = [];
   for (const item of selectedItems) {
     if (!item.quantity || item.quantity <= 0) {
-      alert('Please enter a valid quantity for all selected materials.');
+      alert(`Please enter a valid quantity for: ${item.description}`);
       return;
     }
-    orders.push({ code: item.code, description: item.description, qty: item.quantity });
   }
+  const activeSubs = getActiveSubCats();
+  for (const sub of activeSubs) {
+    const val = (brandMap[sub] || '').trim();
+    if (!val) {
+      const key = btoa(sub).replace(/=/g,'');
+      const el  = document.getElementById(`brand-${key}`);
+      if (el) { el.classList.add('error'); el.focus(); }
+      alert(`Please enter a brand for: ${sub}`);
+      return;
+    }
+  }
+  const orders = selectedItems.map(item => ({
+    code:        item.code,
+    description: item.description,
+    qty:         item.quantity,
+    brand:       brandMap[item.category] || ''
+  }));
   const btn = document.getElementById('submit-btn');
   btn.disabled    = true;
   btn.textContent = 'Submitting...';
@@ -374,7 +579,8 @@ function submitOrder() {
       if (res.success) {
         document.getElementById('main-form').style.display = 'none';
         document.getElementById('success-screen').classList.add('show');
-        document.getElementById('success-pr').textContent = res.prNo || `PR-${new Date().getFullYear()}-${String(rowCounter).padStart(3,'0')}`;
+        document.getElementById('success-pr').textContent =
+          res.prNo || `PR-${new Date().getFullYear()}-${String(rowCounter).padStart(3,'0')}`;
         rowCounter++;
       } else {
         alert('Server error: ' + (res.message || 'Submission failed.'));
