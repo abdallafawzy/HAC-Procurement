@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -20,111 +21,35 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
 
-  /* AUTH */
-  .auth-screen { display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; }
-  .auth-box { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px; width: 100%; max-width: 400px; text-align: center; box-shadow: var(--shadow); }
-  .auth-box h2 { font-size: 20px; color: var(--accent); margin-bottom: 12px; }
-  .auth-box p { font-size: 13px; color: var(--text-muted); margin-bottom: 20px; }
-  .auth-input { width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: var(--radius); font-size: 14px; margin-bottom: 16px; outline: none; }
-  .auth-input:focus { border-color: var(--accent); }
-  .btn-auth { width: 100%; padding: 12px; background: var(--accent); color: white; border: none; border-radius: var(--radius); font-size: 14px; font-weight: 500; cursor: pointer; }
+/* AUTH */.auth-screen { display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; }.auth-box { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px; width: 100%; max-width: 400px; text-align: center; box-shadow: var(--shadow); }.auth-box h2 { font-size: 20px; color: var(--accent); margin-bottom: 12px; }.auth-box p { font-size: 13px; color: var(--text-muted); margin-bottom: 20px; }.auth-input { width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: var(--radius); font-size: 14px; margin-bottom: 16px; outline: none; }.auth-input { border-color: var(--accent); }.btn-auth { width: 100%; padding: 12px; background: var(--accent); color: white; border: none; border-radius: var(--radius); font-size: 14px; font-weight: 500; cursor: pointer; }
 
-  /* TOPBAR */
-  .topbar { background: var(--surface); border-bottom: 1px solid var(--border); padding: 12px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
-  .topbar-logo { display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 600; color: var(--accent); }
-  .topbar-logo svg { width: 28px; height: 28px; }
-  .topbar-meta { display: flex; align-items: center; gap: 20px; }
-  .meta-item { font-size: 12px; color: var(--text-muted); }
-  .meta-item strong { color: var(--text); font-weight: 500; }
-  .pr-badge { background: var(--accent-light); border: 1px solid var(--accent-border); color: var(--accent); font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 20px; }
+/* TOPBAR */.topbar { background: var(--surface); border-bottom: 1px solid var(--border); padding: 12px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }.topbar-logo { display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 600; color: var(--accent); }.topbar-logo svg { width: 28px; height: 28px; }.topbar-meta { display: flex; align-items: center; gap: 20px; }.meta-item { font-size: 12px; color: var(--text-muted); }.meta-item strong { color: var(--text); font-weight: 500; }.pr-badge { background: var(--accent-light); border: 1px solid var(--accent-border); color: var(--accent); font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 20px; }
 
-  /* CONTAINER */
-  .container { max-width: 960px; margin: 0 auto; padding: 24px 16px; }
+/* CONTAINER */.container { max-width: 960px; margin: 0 auto; padding: 24px 16px; }
 
-  /* PROJECT ROW */
-  .project-fields-row { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; margin-bottom: 16px; }
-  @media(max-width: 600px) { .project-fields-row { grid-template-columns: 1fr; } }
-  .project-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px 16px; display: flex; align-items: center; gap: 12px; }
-  .project-wrap label { font-size: 13px; font-weight: 500; color: var(--text-muted); white-space: nowrap; }
-  .project-wrap input, .project-wrap select { flex: 1; border: none; outline: none; font-size: 15px; font-weight: 500; color: var(--text); background: transparent; width: 100%; }
-  .project-wrap input::placeholder { color: #ccc; font-weight: 400; }
+/* PROJECT ROW */.project-fields-row { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; margin-bottom: 16px; }@media(max-width: 600px) { .project-fields-row { grid-template-columns: 1fr; } }.project-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px 16px; display: flex; align-items: center; gap: 12px; }.project-wrap label { font-size: 13px; font-weight: 500; color: var(--text-muted); white-space: nowrap; }.project-wrap input, .project-wrap select { flex: 1; border: none; outline: none; font-size: 15px; font-weight: 500; color: var(--text); background: transparent; width: 100%; }.project-wrap input::placeholder { color: #ccc; font-weight: 400; }
 
-  /* SEARCH BAR */
-  .search-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 10px 16px; display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
-  .search-wrap svg { flex-shrink: 0; color: var(--text-muted); }
-  .search-wrap input { flex: 1; border: none; outline: none; font-size: 14px; color: var(--text); background: transparent; }
-  .search-wrap input::placeholder { color: #bbb; }
-  .search-clear { background: none; border: none; cursor: pointer; color: var(--text-muted); font-size: 16px; padding: 0 4px; display: none; }
-  .search-clear.show { display: block; }
+/* SEARCH BAR */.search-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 10px 16px; display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }.search-wrap svg { flex-shrink: 0; color: var(--text-muted); }.search-wrap input { flex: 1; border: none; outline: none; font-size: 14px; color: var(--text); background: transparent; }.search-wrap input::placeholder { color: #bbb; }.search-clear { background: none; border: none; cursor: pointer; color: var(--text-muted); font-size: 16px; padding: 0 4px; display: none; }.search-clear.show { display: block; }
 
-  /* CATEGORY TREE */
-  .cat-section { margin-bottom: 16px; }
-  .main-cat-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
-  .main-cat-tab { padding: 7px 16px; border-radius: 20px; font-size: 13px; font-weight: 600; cursor: pointer; border: 1px solid var(--border); background: var(--surface); color: var(--text-muted); transition: all 0.15s; }
-  .main-cat-tab.active { background: var(--accent); border-color: var(--accent); color: white; }
-  .sub-cat-row { display: flex; gap: 6px; flex-wrap: wrap; padding-left: 4px; }
-  .sub-cat-tab { padding: 5px 13px; border-radius: 20px; font-size: 12px; font-weight: 500; cursor: pointer; border: 1px solid var(--border); background: var(--surface); color: var(--text-muted); transition: all 0.15s; }
-  .sub-cat-tab.active { background: var(--accent-light); border-color: var(--accent-border); color: var(--accent); }
+/* CATEGORY TREE */.cat-section { margin-bottom: 16px; }.main-cat-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }.main-cat-tab { padding: 7px 16px; border-radius: 20px; font-size: 13px; font-weight: 600; cursor: pointer; border: 1px solid var(--border); background: var(--surface); color: var(--text-muted); transition: all 0.15s; }.main-cat-tab.active { background: var(--accent); border-color: var(--accent); color: white; }.sub-cat-row { display: flex; gap: 6px; flex-wrap: wrap; padding-left: 4px; }.sub-cat-tab { padding: 5px 13px; border-radius: 20px; font-size: 12px; font-weight: 500; cursor: pointer; border: 1px solid var(--border); background: var(--surface); color: var(--text-muted); transition: all 0.15s; }.sub-cat-tab.active { background: var(--accent-light); border-color: var(--accent-border); color: var(--accent); }
 
-  /* GRID */
-  .grid-label { font-size: 11px; font-weight: 500; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; }
-  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; margin-bottom: 20px; }
-  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 10px; cursor: pointer; transition: border-color 0.15s; position: relative; }
-  .card:hover { border-color: var(--accent-border); }
-  .card.selected { border: 1.5px solid var(--accent); background: var(--accent-light); }
-  .card-img { width: 100%; height: 64px; border-radius: 8px; background: #f0f0ee; display: flex; align-items: center; justify-content: center; margin-bottom: 8px; overflow: hidden; }
-  .card-img img { width: 100%; height: 100%; object-fit: cover; }
-  .card-name { font-size: 11px; font-weight: 500; color: var(--text); line-height: 1.35; margin-bottom: 2px; }
-  .card-code { font-size: 10px; color: var(--text-muted); }
-  .check-icon { position: absolute; top: 8px; right: 8px; width: 16px; height: 16px; border-radius: 50%; background: var(--accent); display: none; align-items: center; justify-content: center; }
-  .card.selected .check-icon { display: flex; }
-  .check-icon svg { width: 10px; height: 10px; stroke: white; fill: none; }
-  .qty-row { display: none; margin-top: 8px; border-top: 1px solid var(--accent-border); padding-top: 8px; }
-  .card.selected .qty-row { display: block; }
-  .qty-row input { width: 100%; height: 30px; border-radius: 6px; border: 1px solid var(--accent-border); background: white; color: var(--text); font-size: 13px; font-weight: 500; padding: 0 8px; text-align: center; outline: none; }
-  .qty-row input:focus { border-color: var(--accent); }
+/* GRID */.grid-label { font-size: 11px; font-weight: 500; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; }.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; margin-bottom: 20px; }.card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 10px; cursor: pointer; transition: border-color 0.15s; position: relative; }.card { border-color: var(--accent-border); }.card.selected { border: 1.5px solid var(--accent); background: var(--accent-light); }.card-img { width: 100%; height: 64px; border-radius: 8px; background: #f0f0ee; display: flex; align-items: center; justify-content: center; margin-bottom: 8px; overflow: hidden; }.card-img img { width: 100%; height: 100%; object-fit: cover; }.card-name { font-size: 11px; font-weight: 500; color: var(--text); line-height: 1.35; margin-bottom: 2px; }.card-code { font-size: 10px; color: var(--text-muted); }.check-icon { position: absolute; top: 8px; right: 8px; width: 16px; height: 16px; border-radius: 50%; background: var(--accent); display: none; align-items: center; justify-content: center; }.card.selected .check-icon { display: flex; }.check-icon svg { width: 10px; height: 10px; stroke: white; fill: none; }.qty-row { display: none; margin-top: 8px; border-top: 1px solid var(--accent-border); padding-top: 8px; }.card.selected .qty-row { display: block; }.qty-row input { width: 100%; height: 30px; border-radius: 6px; border: 1px solid var(--accent-border); background: white; color: var(--text); font-size: 13px; font-weight: 500; padding: 0 8px; text-align: center; outline: none; }.qty-row input { border-color: var(--accent); }
 
-  /* BRAND SECTION */
-  .brand-section { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; margin-bottom: 16px; display: none; }
-  .brand-section.show { display: block; }
-  .brand-section-title { font-size: 12px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; display: flex; align-items: center; gap: 6px; }
-  .brand-section-title span { background: #fff3cd; border: 1px solid #ffc107; color: #856404; font-size: 10px; padding: 2px 7px; border-radius: 10px; font-weight: 500; text-transform: none; }
-  .brand-rows { display: flex; flex-direction: column; gap: 10px; }
-  .brand-row { display: flex; align-items: center; gap: 12px; }
-  .brand-row-label { font-size: 13px; font-weight: 500; color: var(--text); min-width: 180px; }
-  .brand-row-label small { display: block; font-size: 10px; color: var(--text-muted); font-weight: 400; }
-  .brand-input { flex: 1; padding: 9px 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 13px; outline: none; color: var(--text); }
-  .brand-input:focus { border-color: var(--accent); }
-  .brand-input.error { border-color: #e53935; background: #fff5f5; }
+/* BRAND SECTION */.brand-section { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; margin-bottom: 16px; display: none; }.brand-section.show { display: block; }.brand-section-title { font-size: 12px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; display: flex; align-items: center; gap: 6px; }.brand-section-title span { background: #fff3cd; border: 1px solid #ffc107; color: #856404; font-size: 10px; padding: 2px 7px; border-radius: 10px; font-weight: 500; text-transform: none; }.brand-rows { display: flex; flex-direction: column; gap: 10px; }.brand-row { display: flex; align-items: center; gap: 12px; }.brand-row-label { font-size: 13px; font-weight: 500; color: var(--text); min-width: 180px; }.brand-row-label small { display: block; font-size: 10px; color: var(--text-muted); font-weight: 400; }.brand-input { flex: 1; padding: 9px 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 13px; outline: none; color: var(--text); }.brand-input { border-color: var(--accent); }.brand-input.error { border-color: #e53935; background: #fff5f5; }
 
-  /* SUMMARY */
-  .summary { background: var(--accent-light); border: 1px solid var(--accent-border); border-radius: var(--radius); padding: 10px 16px; font-size: 13px; color: var(--accent); display: none; align-items: center; gap: 8px; margin-bottom: 16px; }
-  .summary.show { display: flex; }
+/* SUMMARY */.summary { background: var(--accent-light); border: 1px solid var(--accent-border); border-radius: var(--radius); padding: 10px 16px; font-size: 13px; color: var(--accent); display: none; align-items: center; gap: 8px; margin-bottom: 16px; }.summary.show { display: flex; }
 
-  /* ACTIONS */
-  .actions { display: flex; gap: 10px; justify-content: flex-end; padding-top: 16px; border-top: 1px solid var(--border); }
-  .btn-clear { padding: 9px 20px; border-radius: var(--radius); border: 1px solid var(--border); background: var(--surface); color: var(--text); font-size: 13px; cursor: pointer; }
-  .btn-submit { padding: 9px 24px; border-radius: var(--radius); border: none; background: var(--accent); color: white; font-size: 13px; font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 6px; }
-  .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+/* ACTIONS */.actions { display: flex; gap: 10px; justify-content: flex-end; padding-top: 16px; border-top: 1px solid var(--border); }.btn-clear { padding: 9px 20px; border-radius: var(--radius); border: 1px solid var(--border); background: var(--surface); color: var(--text); font-size: 13px; cursor: pointer; }.btn-submit { padding: 9px 24px; border-radius: var(--radius); border: none; background: var(--accent); color: white; font-size: 13px; font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 6px; }.btn-submit { opacity: 0.5; cursor: not-allowed; }
 
-  /* EMPTY STATE */
-  .loading { text-align: center; padding: 40px; color: var(--text-muted); font-size: 14px; }
-  .empty-search { text-align: center; padding: 32px; color: var(--text-muted); font-size: 13px; }
+/* EMPTY STATE */.loading { text-align: center; padding: 40px; color: var(--text-muted); font-size: 14px; }.empty-search { text-align: center; padding: 32px; color: var(--text-muted); font-size: 13px; }
 
-  /* SUCCESS */
-  .success-screen { display: none; text-align: center; padding: 60px 20px; }
-  .success-screen.show { display: block; }
-  .success-icon { width: 60px; height: 60px; border-radius: 50%; background: var(--accent-light); display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; }
-  .success-icon svg { width: 28px; height: 28px; stroke: var(--accent); fill: none; stroke-width: 2; }
-  .success-title { font-size: 20px; font-weight: 600; color: var(--text); margin-bottom: 8px; }
-  .success-pr { font-size: 15px; color: var(--accent); font-weight: 500; margin-bottom: 6px; }
-  .success-sub { font-size: 13px; color: var(--text-muted); margin-bottom: 24px; }
-  .btn-new { padding: 10px 24px; border-radius: var(--radius); border: none; background: var(--accent); color: white; font-size: 13px; font-weight: 500; cursor: pointer; }
-</style>
+/* SUCCESS */.success-screen { display: none; text-align: center; padding: 60px 20px; }.success-screen.show { display: block; }.success-icon { width: 60px; height: 60px; border-radius: 50%; background: var(--accent-light); display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; }.success-icon svg { width: 28px; height: 28px; stroke: var(--accent); fill: none; stroke-width: 2; }.success-title { font-size: 20px; font-weight: 600; color: var(--text); margin-bottom: 8px; }.success-pr { font-size: 15px; color: var(--accent); font-weight: 500; margin-bottom: 6px; }.success-sub { font-size: 13px; color: var(--text-muted); margin-bottom: 24px; }.btn-new { padding: 10px 24px; border-radius: var(--radius); border: none; background: var(--accent); color: white; font-size: 13px; font-weight: 500; cursor: pointer; }</style>
+
 </head>
 <body>
 
 <!-- AUTH -->
+
 <div class="auth-screen" id="auth-screen">
   <div class="auth-box">
     <h2>HAC Procurement</h2>
@@ -136,6 +61,7 @@
 </div>
 
 <!-- APP -->
+
 <div id="app-wrapper" style="display:none;">
   <div class="topbar">
     <div class="topbar-logo">
@@ -155,82 +81,91 @@
   <div class="container">
     <div id="main-form">
 
-      <!-- Project + Location -->
-      <div class="project-fields-row">
-        <div class="project-wrap">
-          <label>Project</label>
-          <input type="text" id="project-input" placeholder="e.g. Juin Park Offices">
-        </div>
-        <div class="project-wrap">
-          <label>Location</label>
-          <select id="location-input">
-            <option value="" disabled selected>Select City</option>
-            <option value="Riyadh">Riyadh (الرياض)</option>
-            <option value="Jeddah">Jeddah (جدة)</option>
-            <option value="Mecca">Mecca (مكة المكرمة)</option>
-            <option value="Medina">Medina (المدينة المنورة)</option>
-            <option value="Dammam">Dammam (الدمام)</option>
-            <option value="Khobar">Khobar (الخبر)</option>
-            <option value="Abha">Abha (أبها)</option>
-            <option value="Tabuk">Tabuk (تبوك)</option>
-            <option value="Buraidah">Buraidah (بريدة)</option>
-            <option value="Hail">Hail (حائل)</option>
-            <option value="Jazan">Jazan (جازان)</option>
-            <option value="Najran">Najran (نجران)</option>
-            <option value="Taif">Taif (الطائف)</option>
-            <option value="Jubail">Jubail (الجبيل)</option>
-          </select>
-        </div>
-      </div>
-
-      <!-- Search Bar -->
-      <div class="search-wrap">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
-          <circle cx="6.5" cy="6.5" r="4.5"/><line x1="10.5" y1="10.5" x2="14" y2="14"/>
-        </svg>
-        <input type="text" id="search-input" placeholder="Search by name, code, or category..." oninput="onSearch(this.value)">
-        <button class="search-clear" id="search-clear" onclick="clearSearch()">✕</button>
-      </div>
-
-      <!-- Category Tree -->
-      <div class="cat-section" id="cat-section">
-        <div class="main-cat-tabs" id="main-cat-tabs"></div>
-        <div class="sub-cat-row" id="sub-cat-tabs"></div>
-      </div>
-
-      <!-- Grid -->
-      <div class="grid-label">Select materials and enter quantity</div>
-      <div class="grid" id="materials-grid">
-        <div class="loading">Loading materials...</div>
-      </div>
-
-
-      <!-- Summary -->
-      <div class="summary" id="summary">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="2,8 6,12 14,4"/></svg>
-        <span id="summary-text"></span>
-      </div>
-
-      <!-- Actions -->
-      <div class="actions">
-        <button class="btn-clear" onclick="clearAll()">Clear</button>
-        <button class="btn-submit" id="submit-btn" onclick="submitOrder()">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><line x1="2" y1="7" x2="12" y2="7"/><polyline points="8,3 12,7 8,11"/></svg>
-          Submit Request
-        </button>
-      </div>
+  <!-- Project + Location -->
+  <div class="project-fields-row">
+    <div class="project-wrap">
+      <label>Project</label>
+      <input type="text" id="project-input" placeholder="e.g. Juin Park Offices">
     </div>
-
-    <!-- Success -->
-    <div class="success-screen" id="success-screen">
-      <div class="success-icon">
-        <svg viewBox="0 0 28 28"><polyline points="4,14 10,20 24,8"/></svg>
-      </div>
-      <div class="success-title">Request Submitted!</div>
-      <div class="success-pr" id="success-pr"></div>
-      <div class="success-sub">Order successfully appended to Master Sheet.</div>
-      <button class="btn-new" onclick="newRequest()">New Request</button>
+    <div class="project-wrap">
+      <label>Location</label>
+      <select id="location-input">
+        <option value="" disabled selected>Select City</option>
+        <option value="Riyadh">Riyadh (الرياض)</option>
+        <option value="Jeddah">Jeddah (جدة)</option>
+        <option value="Mecca">Mecca (مكة المكرمة)</option>
+        <option value="Medina">Medina (المدينة المنورة)</option>
+        <option value="Dammam">Dammam (الدمام)</option>
+        <option value="Khobar">Khobar (الخبر)</option>
+        <option value="Abha">Abha (أبها)</option>
+        <option value="Tabuk">Tabuk (تبوك)</option>
+        <option value="Buraidah">Buraidah (بريدة)</option>
+        <option value="Hail">Hail (حائل)</option>
+        <option value="Jazan">Jazan (جازان)</option>
+        <option value="Najran">Najran (نجران)</option>
+        <option value="Taif">Taif (الطائف)</option>
+        <option value="Jubail">Jubail (الجبيل)</option>
+      </select>
     </div>
+  </div>
+
+  <!-- Search Bar -->
+  <div class="search-wrap">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="6.5" cy="6.5" r="4.5"/><line x1="10.5" y1="10.5" x2="14" y2="14"/>
+    </svg>
+    <input type="text" id="search-input" placeholder="Search by name, code, or category..." oninput="onSearch(this.value)">
+    <button class="search-clear" id="search-clear" onclick="clearSearch()">✕</button>
+  </div>
+
+  <!-- Category Tree -->
+  <div class="cat-section" id="cat-section">
+    <div class="main-cat-tabs" id="main-cat-tabs"></div>
+    <div class="sub-cat-row" id="sub-cat-tabs"></div>
+  </div>
+
+  <!-- Grid -->
+  <div class="grid-label">Select materials and enter quantity</div>
+  <div class="grid" id="materials-grid">
+    <div class="loading">Loading materials...</div>
+  </div>
+
+  <!-- Brand Section -->
+  <div class="brand-section" id="brand-section">
+    <div class="brand-section-title">
+      Brand per Category
+      <span>Required</span>
+    </div>
+    <div class="brand-rows" id="brand-rows"></div>
+  </div>
+
+  <!-- Summary -->
+  <div class="summary" id="summary">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="2,8 6,12 14,4"/></svg>
+    <span id="summary-text"></span>
+  </div>
+
+  <!-- Actions -->
+  <div class="actions">
+    <button class="btn-clear" onclick="clearAll()">Clear</button>
+    <button class="btn-submit" id="submit-btn" onclick="submitOrder()">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><line x1="2" y1="7" x2="12" y2="7"/><polyline points="8,3 12,7 8,11"/></svg>
+      Submit Request
+    </button>
+  </div>
+</div>
+
+<!-- Success -->
+<div class="success-screen" id="success-screen">
+  <div class="success-icon">
+    <svg viewBox="0 0 28 28"><polyline points="4,14 10,20 24,8"/></svg>
+  </div>
+  <div class="success-title">Request Submitted!</div>
+  <div class="success-pr" id="success-pr"></div>
+  <div class="success-sub">Order successfully appended to Master Sheet.</div>
+  <button class="btn-new" onclick="newRequest()">New Request</button>
+</div>
+
   </div>
 </div>
 
@@ -477,6 +412,7 @@ function getActiveSubCats() {
   return [...new Set(selected.map(m => m.category).filter(Boolean))];
 }
 
+function updateBrandSection() {
   const activeSubs = getActiveSubCats();
   const section    = document.getElementById('brand-section');
   const rows       = document.getElementById('brand-rows');
@@ -497,6 +433,12 @@ function getActiveSubCats() {
         ${sub}
         <small>Enter preferred brand</small>
       </div>
+      <input type="text"
+             class="brand-input"
+             id="brand-input-${idx}"
+             placeholder="e.g. Wavin, Georg Fischer..."
+             value="${brandMap[sub] || ''}">
+    </div>
   `).join('');
 
   // Attach listeners after rendering
@@ -544,6 +486,16 @@ function submitOrder() {
   }
 
   const activeSubs = getActiveSubCats();
+  for (let i = 0; i < activeSubs.length; i++) {
+    const sub = activeSubs[i];
+    const val = (brandMap[sub] || '').trim();
+    if (!val) {
+      const el = document.getElementById(`brand-input-${i}`);
+      if (el) { el.classList.add('error'); el.focus(); }
+      alert(`Please enter a brand for: ${sub}`);
+      return;
+    }
+  }
 
   const orders = selectedItems.map(item => ({
     code:        item.code,
@@ -591,5 +543,6 @@ function newRequest() {
   updatePRDisplay();
 }
 </script>
+
 </body>
 </html>
