@@ -499,32 +499,6 @@ function updateBrandSection() {
   section.classList.add('show');
   Object.keys(brandMap).forEach(k => { if (!activeSubs.includes(k)) delete brandMap[k]; });
 
-  // Index-based IDs to avoid btoa issues with Arabic text
-  rows.innerHTML = activeSubs.map((sub, idx) => `
-    <div class="brand-row">
-      <div class="brand-row-label">
-        ${sub}
-        <small>Enter preferred brand</small>
-      </div>
-      <input type="text"
-             class="brand-input"
-             id="brand-input-${idx}"
-             placeholder="برجاء تحديد البراند المطلوب"
-             value="${brandMap[sub] || ''}">
-    </div>
-  `).join('');
-
-  // Attach listeners after rendering
-  activeSubs.forEach((sub, idx) => {
-    const el = document.getElementById(`brand-input-${idx}`);
-    if (el) el.addEventListener('input', () => { brandMap[sub] = el.value; });
-  });
-}
-
-function updateBrand(sub, val) {
-  brandMap[sub] = val;
-}
-
 function clearAll() {
   materials.forEach(m => { m.selected = false; m.quantity = ''; });
   document.getElementById('project-input').value  = '';
