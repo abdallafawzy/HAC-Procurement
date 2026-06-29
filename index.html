@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -117,6 +116,154 @@
 .loading { text-align: center; padding: 40px; color: var(--text-muted); font-size: 14px; }
 .empty-search { text-align: center; padding: 32px; color: var(--text-muted); font-size: 13px; }
 
+/* ─── PREVIEW SCREEN ─── */
+.preview-screen { display: none; }
+.preview-screen.show { display: block; }
+
+.preview-header { margin-bottom: 20px; }
+.preview-header h2 { font-size: 18px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+.preview-header p { font-size: 13px; color: var(--text-muted); }
+
+.preview-meta-bar {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 18px;
+  display: flex;
+  gap: 32px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+.preview-meta-item { display: flex; flex-direction: column; gap: 2px; }
+.preview-meta-item label { font-size: 11px; color: var(--text-muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.4px; }
+.preview-meta-item strong { font-size: 14px; color: var(--text); font-weight: 600; }
+
+.preview-table-wrap {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+.preview-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+.preview-table thead tr {
+  background: #f9f9f8;
+  border-bottom: 1px solid var(--border);
+}
+.preview-table thead th {
+  padding: 10px 14px;
+  text-align: left;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  white-space: nowrap;
+}
+.preview-table tbody tr {
+  border-bottom: 1px solid var(--border);
+  transition: background 0.1s;
+}
+.preview-table tbody tr:last-child { border-bottom: none; }
+.preview-table tbody tr:hover { background: #fafafa; }
+.preview-table td { padding: 10px 14px; vertical-align: middle; }
+
+.pt-img {
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  background: #f0f0ee;
+  overflow: hidden;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pt-img img { width: 100%; height: 100%; object-fit: cover; }
+
+.pt-name { font-weight: 500; color: var(--text); margin-bottom: 2px; line-height: 1.3; }
+.pt-code { font-size: 11px; color: var(--text-muted); }
+
+.pt-cat-badge {
+  display: inline-block;
+  background: var(--accent-light);
+  border: 1px solid var(--accent-border);
+  color: var(--accent);
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+.pt-qty { font-size: 15px; font-weight: 700; color: var(--text); }
+.pt-unit { font-size: 11px; color: var(--text-muted); }
+.pt-brand { font-size: 13px; font-weight: 500; color: var(--text); }
+
+.preview-table .group-header td {
+  background: #f5f5f3;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 7px 14px;
+  border-bottom: 1px solid var(--border);
+}
+
+.preview-total {
+  background: var(--accent-light);
+  border: 1px solid var(--accent-border);
+  border-radius: var(--radius);
+  padding: 12px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  font-size: 13px;
+  color: var(--accent);
+}
+.preview-total strong { font-size: 15px; font-weight: 700; }
+
+.preview-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+.btn-back {
+  padding: 10px 22px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.btn-confirm {
+  padding: 10px 26px;
+  border-radius: var(--radius);
+  border: none;
+  background: var(--accent);
+  color: white;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.btn-confirm:disabled { opacity: 0.5; cursor: not-allowed; }
+
 /* SUCCESS */
 .success-screen { display: none; text-align: center; padding: 60px 20px; }
 .success-screen.show { display: block; }
@@ -126,8 +273,16 @@
 .success-pr { font-size: 15px; color: var(--accent); font-weight: 500; margin-bottom: 6px; }
 .success-sub { font-size: 13px; color: var(--text-muted); margin-bottom: 24px; }
 .btn-new { padding: 10px 24px; border-radius: var(--radius); border: none; background: var(--accent); color: white; font-size: 13px; font-weight: 500; cursor: pointer; }
-</style>
 
+@media(max-width: 600px) {
+  .preview-meta-bar { gap: 16px; }
+  .preview-table thead th:nth-child(3),
+  .preview-table td:nth-child(3) { display: none; }
+  .preview-total { flex-direction: column; align-items: flex-start; gap: 4px; }
+  .preview-actions { flex-direction: column-reverse; }
+  .btn-back, .btn-confirm { width: 100%; justify-content: center; }
+}
+</style>
 </head>
 <body>
 
@@ -160,9 +315,9 @@
   </div>
 
   <div class="container">
-    <div id="main-form">
 
-      <!-- Project + Location -->
+    <!-- MAIN FORM -->
+    <div id="main-form">
       <div class="project-fields-row">
         <div class="project-wrap">
           <label>Project</label>
@@ -190,7 +345,6 @@
         </div>
       </div>
 
-      <!-- Search Bar -->
       <div class="search-wrap">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
           <circle cx="6.5" cy="6.5" r="4.5"/><line x1="10.5" y1="10.5" x2="14" y2="14"/>
@@ -199,19 +353,16 @@
         <button class="search-clear" id="search-clear" onclick="clearSearch()">✕</button>
       </div>
 
-      <!-- Category Tree -->
       <div class="cat-section" id="cat-section">
         <div class="main-cat-tabs" id="main-cat-tabs"></div>
         <div class="sub-cat-row" id="sub-cat-tabs"></div>
       </div>
 
-      <!-- Grid -->
       <div class="grid-label">Select materials and enter quantity</div>
       <div class="grid" id="materials-grid">
         <div class="loading">Loading materials...</div>
       </div>
 
-      <!-- Brand Section -->
       <div class="brand-section" id="brand-section">
         <div class="brand-section-title">
           Brand per Category
@@ -220,23 +371,59 @@
         <div class="brand-rows" id="brand-rows"></div>
       </div>
 
-      <!-- Summary -->
       <div class="summary" id="summary">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="2,8 6,12 14,4"/></svg>
         <span id="summary-text"></span>
       </div>
 
-      <!-- Actions -->
       <div class="actions">
         <button class="btn-clear" onclick="clearAll()">Clear</button>
-        <button class="btn-submit disabled" id="submit-btn" onclick="submitOrder()">
+        <button class="btn-submit disabled" id="submit-btn" onclick="showPreview()">
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><line x1="2" y1="7" x2="12" y2="7"/><polyline points="8,3 12,7 8,11"/></svg>
-          Submit Request
+          Review Order
         </button>
       </div>
     </div>
 
-    <!-- Success -->
+    <!-- PREVIEW SCREEN -->
+    <div class="preview-screen" id="preview-screen">
+      <div class="preview-header">
+        <h2>Review Your Order</h2>
+        <p>Please confirm all details before submitting.</p>
+      </div>
+
+      <div class="preview-meta-bar" id="preview-meta-bar"></div>
+
+      <div class="preview-table-wrap">
+        <table class="preview-table" id="preview-table">
+          <thead>
+            <tr>
+              <th style="width:52px"></th>
+              <th>Material</th>
+              <th>Category</th>
+              <th>Brand</th>
+              <th style="text-align:center">Qty</th>
+            </tr>
+          </thead>
+          <tbody id="preview-tbody"></tbody>
+        </table>
+      </div>
+
+      <div class="preview-total" id="preview-total"></div>
+
+      <div class="preview-actions">
+        <button class="btn-back" onclick="backToForm()">
+          <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="2"><line x1="11" y1="6.5" x2="2" y2="6.5"/><polyline points="5,3 2,6.5 5,10"/></svg>
+          Edit Request
+        </button>
+        <button class="btn-confirm" id="confirm-btn" onclick="submitOrder()">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1,7 5,11 13,3"/></svg>
+          Confirm &amp; Submit
+        </button>
+      </div>
+    </div>
+
+    <!-- SUCCESS -->
     <div class="success-screen" id="success-screen">
       <div class="success-icon">
         <svg viewBox="0 0 28 28"><polyline points="4,14 10,20 24,8"/></svg>
@@ -260,13 +447,14 @@ const ALLOWED_USERS = [
 ];
 
 let currentUserName = '';
-let materials = [];
-let mainCategories = [];
-let subCategories = {};
-let currentMain = 'ALL';
-let currentSub  = 'ALL';
-let searchQuery = '';
-let rowCounter  = 1;
+let materials       = [];
+let mainCategories  = [];
+let subCategories   = {};
+let currentMain     = 'ALL';
+let currentSub      = 'ALL';
+let searchQuery     = '';
+let rowCounter      = 1;
+let brandMap        = {};
 
 window.onload = () => {
   const savedUser = localStorage.getItem('hac_user');
@@ -426,7 +614,6 @@ function renderGrid() {
     grid.innerHTML = `<div class="empty-search">No materials found${searchQuery ? ` for "${searchQuery}"` : ''}.</div>`;
     return;
   }
-
   grid.innerHTML = filtered.map(m => {
     let cardClass = 'card';
     if (m.selected) {
@@ -460,6 +647,12 @@ function pipeSVG(type) {
   return `<svg viewBox="0 0 100 50" width="90" height="45"><rect x="4" y="16" width="92" height="18" rx="9" fill="${color}"/><ellipse cx="50" cy="16" rx="46" ry="9" fill="${light}"/></svg>`;
 }
 
+function pipeSVGSmall(type) {
+  const color = type && type.includes('BLACK') ? '#333' : '#1a6b3c';
+  const light = type && type.includes('BLACK') ? '#555' : '#2d9e6b';
+  return `<svg viewBox="0 0 100 50" width="36" height="18"><rect x="4" y="16" width="92" height="18" rx="9" fill="${color}"/><ellipse cx="50" cy="16" rx="46" ry="9" fill="${light}"/></svg>`;
+}
+
 function toggleCard(code, event) {
   if (event.target.tagName === 'INPUT') return;
   const item = materials.find(m => m.code === code);
@@ -470,10 +663,7 @@ function toggleCard(code, event) {
   if (item.selected) {
     setTimeout(() => {
       const card = document.querySelector(`.card[data-code="${code}"]`);
-      if (card) {
-        const input = card.querySelector('input');
-        if (input) input.focus();
-      }
+      if (card) { const input = card.querySelector('input'); if (input) input.focus(); }
     }, 50);
   }
   updateSummary();
@@ -487,13 +677,11 @@ function updateQty(code, val) {
     item.quantity = val;
     localStorage.setItem('hac_project',  document.getElementById('project-input').value);
     localStorage.setItem('hac_location', document.getElementById('location-input').value);
-
     const card = document.querySelector(`.card[data-code="${code}"]`);
     if (card) {
       const hasQty = val && parseInt(val) > 0;
       card.className = hasQty ? 'card selected-with-qty' : 'card selected-no-qty';
     }
-
     updateSummary();
     updateBrandSection();
     updateSubmitBtn();
@@ -508,13 +696,8 @@ function updateSubmitBtn() {
   const activeSubs   = getSubCatsWithQty();
   const allBrandsFilled = activeSubs.every(sub => (brandMap[sub] || '').trim().length > 0);
   const canSubmit = project && location && itemsWithQty.length > 0 && allBrandsFilled;
-  if (canSubmit) {
-    btn.classList.remove('disabled');
-    btn.disabled = false;
-  } else {
-    btn.classList.add('disabled');
-    btn.disabled = true;
-  }
+  btn.classList.toggle('disabled', !canSubmit);
+  btn.disabled = !canSubmit;
 }
 
 function updateSummary() {
@@ -528,56 +711,38 @@ function updateSummary() {
   }
 }
 
-let brandMap = {};
-
 function getSubCatsWithQty() {
   const itemsWithQty = materials.filter(m => m.selected && m.quantity && parseInt(m.quantity) > 0);
   return [...new Set(itemsWithQty.map(m => m.category).filter(Boolean))];
-}
-
-function getActiveSubCats() {
-  return getSubCatsWithQty();
 }
 
 function updateBrandSection() {
   const activeSubs = getSubCatsWithQty();
   const section    = document.getElementById('brand-section');
   const rows       = document.getElementById('brand-rows');
-
   if (activeSubs.length === 0) {
     section.classList.remove('show');
     brandMap = {};
     updateSubmitBtn();
     return;
   }
-
   section.classList.add('show');
   Object.keys(brandMap).forEach(k => { if (!activeSubs.includes(k)) delete brandMap[k]; });
-
   rows.innerHTML = activeSubs.map((sub, idx) => `
     <div class="brand-row">
       <div class="brand-row-label">
         ${sub}
         <small>Enter preferred brand</small>
       </div>
-      <input type="text"
-             class="brand-input"
-             id="brand-input-${idx}"
+      <input type="text" class="brand-input" id="brand-input-${idx}"
              placeholder="برجاء تحديد البراند المطلوب"
              value="${brandMap[sub] || ''}">
     </div>
   `).join('');
-
   activeSubs.forEach((sub, idx) => {
     const el = document.getElementById(`brand-input-${idx}`);
-    if (el) {
-      el.addEventListener('input', () => {
-        brandMap[sub] = el.value;
-        updateSubmitBtn();
-      });
-    }
+    if (el) el.addEventListener('input', () => { brandMap[sub] = el.value; updateSubmitBtn(); });
   });
-
   updateSubmitBtn();
 }
 
@@ -599,29 +764,83 @@ function clearAll() {
   updateSubmitBtn();
 }
 
-function submitOrder() {
+function showPreview() {
   const btn = document.getElementById('submit-btn');
   if (btn.disabled) return;
 
   const project  = document.getElementById('project-input').value.trim();
   const location = document.getElementById('location-input').value;
-  if (!project)  { alert('Please enter a project name.');           return; }
-  if (!location) { alert('Please select a project location city.'); return; }
+  const dateStr  = document.getElementById('date-display').textContent;
+  const prNo     = document.getElementById('pr-display').textContent;
+
+  document.getElementById('preview-meta-bar').innerHTML = `
+    <div class="preview-meta-item"><label>PR Number</label><strong>${prNo}</strong></div>
+    <div class="preview-meta-item"><label>Project</label><strong>${project}</strong></div>
+    <div class="preview-meta-item"><label>Location</label><strong>${location}</strong></div>
+    <div class="preview-meta-item"><label>Date</label><strong>${dateStr}</strong></div>
+    <div class="preview-meta-item"><label>Requested by</label><strong>${currentUserName}</strong></div>
+  `;
 
   const selectedItems = materials.filter(m => m.selected && m.quantity && parseInt(m.quantity) > 0);
-  if (selectedItems.length === 0) { alert('Please select at least one material with a valid quantity.'); return; }
+  const grouped = {};
+  selectedItems.forEach(item => {
+    const cat = item.category || 'Uncategorized';
+    if (!grouped[cat]) grouped[cat] = [];
+    grouped[cat].push(item);
+  });
 
-  const activeSubs = getSubCatsWithQty();
-  for (let i = 0; i < activeSubs.length; i++) {
-    const sub = activeSubs[i];
-    const val = (brandMap[sub] || '').trim();
-    if (!val) {
-      const el = document.getElementById(`brand-input-${i}`);
-      if (el) { el.classList.add('error'); el.focus(); }
-      alert(`Please enter a brand for: ${sub}`);
-      return;
-    }
-  }
+  let tbodyHTML = '';
+  Object.entries(grouped).forEach(([cat, items]) => {
+    tbodyHTML += `<tr class="group-header"><td colspan="5">${cat} — Brand: ${brandMap[cat] || '—'}</td></tr>`;
+    items.forEach(item => {
+      const imgCell = item.image
+        ? `<img src="${item.image}" alt="${item.description}" style="width:44px;height:44px;border-radius:8px;object-fit:cover;" onerror="this.style.display='none'">`
+        : `<div style="width:44px;height:44px;border-radius:8px;background:#f0f0ee;display:flex;align-items:center;justify-content:center;">${pipeSVGSmall(item.type)}</div>`;
+      tbodyHTML += `
+        <tr>
+          <td><div class="pt-img">${imgCell}</div></td>
+          <td>
+            <div class="pt-name">${item.description}</div>
+            <div class="pt-code">${item.code}</div>
+          </td>
+          <td><span class="pt-cat-badge">${cat}</span></td>
+          <td><div class="pt-brand">${brandMap[cat] || '—'}</div></td>
+          <td style="text-align:center">
+            <div class="pt-qty">${item.quantity}</div>
+            <div class="pt-unit">${item.unit || ''}</div>
+          </td>
+        </tr>
+      `;
+    });
+  });
+  document.getElementById('preview-tbody').innerHTML = tbodyHTML;
+
+  const total = selectedItems.length;
+  const cats  = Object.keys(grouped).length;
+  document.getElementById('preview-total').innerHTML = `
+    <span>Total: <strong>${total} material${total !== 1 ? 's' : ''}</strong> across ${cats} categor${cats !== 1 ? 'ies' : 'y'}</span>
+    <span style="font-size:12px;opacity:0.8">Please review carefully before confirming</span>
+  `;
+
+  document.getElementById('main-form').style.display = 'none';
+  document.getElementById('preview-screen').classList.add('show');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function backToForm() {
+  document.getElementById('preview-screen').classList.remove('show');
+  document.getElementById('main-form').style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function submitOrder() {
+  const confirmBtn = document.getElementById('confirm-btn');
+  confirmBtn.disabled    = true;
+  confirmBtn.textContent = 'Submitting…';
+
+  const project  = document.getElementById('project-input').value.trim();
+  const location = document.getElementById('location-input').value;
+  const selectedItems = materials.filter(m => m.selected && m.quantity && parseInt(m.quantity) > 0);
 
   const orders = selectedItems.map(item => ({
     code:        item.code,
@@ -630,9 +849,6 @@ function submitOrder() {
     unit:        item.unit || '',
     brand:       brandMap[item.category] || ''
   }));
-
-  btn.disabled    = true;
-  btn.textContent = 'Submitting...';
 
   const params = new URLSearchParams({
     action:    'submitOrder',
@@ -646,32 +862,30 @@ function submitOrder() {
     .then(r => r.json())
     .then(res => {
       if (res.success) {
-        document.getElementById('main-form').style.display = 'none';
+        document.getElementById('preview-screen').classList.remove('show');
         document.getElementById('success-screen').classList.add('show');
         document.getElementById('success-pr').textContent =
           res.prNo || `PR-${new Date().getFullYear()}-${String(rowCounter).padStart(3,'0')}`;
         rowCounter++;
       } else {
         alert('Server error: ' + (res.message || 'Submission failed.'));
-        updateSubmitBtn();
+        confirmBtn.disabled  = false;
+        confirmBtn.innerHTML = '<svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1,7 5,11 13,3"/></svg> Confirm & Submit';
       }
     })
     .catch(() => {
       alert('Error submitting. Check your connection.');
-      updateSubmitBtn();
-    })
-    .finally(() => {
-      btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><line x1="2" y1="7" x2="12" y2="7"/><polyline points="8,3 12,7 8,11"/></svg> Submit Request';
+      confirmBtn.disabled  = false;
+      confirmBtn.innerHTML = '<svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1,7 5,11 13,3"/></svg> Confirm & Submit';
     });
 }
 
 function newRequest() {
-  document.getElementById('main-form').style.display = 'block';
   document.getElementById('success-screen').classList.remove('show');
+  document.getElementById('main-form').style.display = 'block';
   clearAll();
   updatePRDisplay();
 }
 </script>
-
 </body>
 </html>
